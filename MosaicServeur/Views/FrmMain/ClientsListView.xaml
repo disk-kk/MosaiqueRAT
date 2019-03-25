@@ -14,9 +14,19 @@
                     <ContextMenu.BitmapEffect>
                         <BitmapEffectGroup/>
                     </ContextMenu.BitmapEffect>
-                    <MenuItem  Style="{x:Null}" Header="Edit" Name="EditNutritionContextMenu"  />
-                    <MenuItem  Style="{x:Null}" Header="Remove" Name="RemoveNutritionContextMenu">
-                        <MenuItem Click="testFrm" Style="{x:Null}" Header="Add"/>
+                    <MenuItem  Style="{x:Null}" Header="System">
+                        <MenuItem Style="{x:Null}"  Click="SysInfoMenuItem" Header="System Information"/>
+                        <MenuItem Style="{x:Null}"  Click="FileMgMenuItem" Header="File Manager"/>
+                        <MenuItem Style="{x:Null}"  Click="TaskMgMenuItem" Header="Task Manager"/>
+                        <MenuItem Style="{x:Null}"  Click="StartupMgMenuItem" Header="Startup Manager"/>
+                        <MenuItem Style="{x:Null}"  Click="RunasMenuItem" Header="Run As Admin"/>
+                    </MenuItem>
+                    <MenuItem  Style="{x:Null}" Header="Spying">
+                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Remote Desktop"/>
+                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Remote Webcam"/>
+                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Remote Shell"/>
+                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Password Recovery"/>
+                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Key Logger"/>
                     </MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>

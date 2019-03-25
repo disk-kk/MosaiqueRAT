@@ -96,12 +96,6 @@
     <Compile Include="Views\FrmListener.designer.cs">
       <DependentUpon>FrmListener.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FrmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\FrmMain.designer.cs">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\FrmMain\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -269,9 +263,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmListener.resx">
       <DependentUpon>FrmListener.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\FrmMain.resx">
-      <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmPasswordRecovery.resx">
       <DependentUpon>FrmPasswordRecovery.cs</DependentUpon>

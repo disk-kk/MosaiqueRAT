@@ -37,8 +37,17 @@
 
             <Grid x:Name="GridSettings" Grid.Row="1"/>
 
-            <Grid Grid.Row="2" Background="LightGray"/>
-            
+            <Grid Grid.Row="2" Background="LightGray">
+
+                <DockPanel>
+                    <StatusBar x:Name="statusBarListening" DockPanel.Dock="Bottom">
+                        <StatusBarItem>
+                            <TextBlock Text="" Name="lblListening" />
+                        </StatusBarItem>
+                    </StatusBar>
+                </DockPanel>
+            </Grid>
+
         </Grid>
 
         <StackPanel Grid.Column="0" Background="#FF222222">

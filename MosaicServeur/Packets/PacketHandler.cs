@@ -12,7 +12,7 @@ namespace Serveur.Packets
 
             if (type == TypePackets.SetStatus)
             {
-                Views.FrmMain.instance.setWarning((SetStatus)packet);
+                //Views.FrmMain.instance.setWarning((SetStatus)packet);
             }
             else if (type == TypePackets.GetMonitorsResponse)
             {

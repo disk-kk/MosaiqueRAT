@@ -39,7 +39,7 @@ namespace Serveur.Controllers
                     }
 
                     _serverSocket.Listen(1000);
-                    Views.FrmMain.instance.setListeningStatus("Port : " + port + ' ' + "Listening.");
+                    MosaicServeur.MainWindow.instance.setListeningStatus("Port : " + port + ' ' + "Listening.");
                     LISTENING = true;
                     _serverSocket.BeginAccept(new AsyncCallback(acceptClient), null);
                 }
@@ -58,7 +58,7 @@ namespace Serveur.Controllers
                 _serverSocket.Close();
                 _serverSocket = null;
                 LISTENING = false;
-                Views.FrmMain.instance.setListeningStatus("Not listening.");
+                MosaicServeur.MainWindow.instance.setListeningStatus("Not listening.");
             }
         }
 

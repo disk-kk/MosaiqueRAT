@@ -26,16 +26,15 @@ namespace Client
             //bootController = new BootController();
             //StreamReader readerMutex = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().Location);
             //MutexController.mutexKey = BootController.getMutexKey(readerMutex);
-            MutexController.mutexKey = "sdkfjslkfjsldkfjsdlfj546s46s46s64s";
-            result = MutexController.createMutex();
+            //MutexController.mutexKey = "sdkfjslkfjsldkfjsdlfj546s46s46s64s";
+            //result = MutexController.createMutex();
             //var mutex = new System.Threading.Mutex(true, mutexKey, out result);
 
-            if (!result)
-            {
-                MessageBox.Show("Another instance of application is already running !");
-                return;
-            }
-            MessageBox.Show(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Settings.LOGDIRECTORYNAME));
+            //if (!result)
+            //{
+            //    MessageBox.Show("Another instance of application is already running !");
+            //    return;
+            //}
 
             if (Settings.ENABLELOGGER)
             {
