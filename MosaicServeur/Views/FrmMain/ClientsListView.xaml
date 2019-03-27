@@ -22,16 +22,16 @@
                         <MenuItem Style="{x:Null}"  Click="RunasMenuItem" Header="Run As Admin"/>
                     </MenuItem>
                     <MenuItem  Style="{x:Null}" Header="Spying">
-                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Remote Desktop"/>
-                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Remote Webcam"/>
-                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Remote Shell"/>
-                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Password Recovery"/>
-                        <MenuItem Style="{x:Null}"  Click="testFrm" Header="Key Logger"/>
+                        <MenuItem Style="{x:Null}"  Click="RdMenuItem" Header="Remote Desktop"/>
+                        <MenuItem Style="{x:Null}"  Click="RwMenuItem" Header="Remote Webcam"/>
+                        <MenuItem Style="{x:Null}"  Click="RsMenuItem" Header="Remote Shell"/>
+                        <MenuItem Style="{x:Null}"  Click="PrMenuItem" Header="Password Recovery"/>
+                        <MenuItem Style="{x:Null}"  Click="KlMenuItem" Header="Key Logger"/>
                     </MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
-                <GridView>
+                <GridView x:Name="test">
                     <GridViewColumn Header="Ip Address" DisplayMemberBinding="{Binding Ip}"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Account Type" DisplayMemberBinding="{Binding AccType}"/>
@@ -41,6 +41,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
     </Grid>
 </UserControl>

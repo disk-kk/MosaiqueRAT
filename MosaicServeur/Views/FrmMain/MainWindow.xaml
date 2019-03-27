@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MosaicServeur"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Height="600" Width="1000" WindowStartupLocation="CenterScreen"
+        Height="600" Width="1000" WindowStartupLocation="CenterScreen" Loaded="Load"
         Title="Mosaic - Remote Administrator Tools">
     <Grid Background="#FFEEEEEE">
 
@@ -51,8 +51,8 @@
         </Grid>
 
         <StackPanel Grid.Column="0" Background="#FF222222">
-            <ListView x:Name="ListViewMenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="0 20" Foreground="LightGray" VerticalAlignment="top" SelectionChanged="ListViewMenu_SelectionChanged">
-                <ListViewItem Height="70" Width="140">
+            <ListView x:Name="ListViewMenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="0 0" Foreground="LightGray" VerticalAlignment="top" SelectionChanged="ListViewMenu_SelectionChanged">
+                <ListViewItem x:Name="ItemHome" Height="70" Width="140">
                     <Grid Height="70" Width="140">
                         <StackPanel Margin="0 0 0 15" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Margin="0" Kind="Home" Width="20" Height="20"/>
@@ -60,7 +60,7 @@
                         </StackPanel>
                     </Grid>
                 </ListViewItem>
-                <ListViewItem Height="70" Width="140">
+                <ListViewItem x:Name="ItemSettings" Height="70" Width="140">
                     <Grid Height="70" Width="140">
                         <StackPanel Margin="0 0 0 15" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Margin="5,0" Kind="Settings" Width="20" Height="20"/>
@@ -68,7 +68,7 @@
                         </StackPanel>
                     </Grid>
                 </ListViewItem>
-                <ListViewItem Height="70" Width="140">
+                <ListViewItem x:Name="ItemBuilder" Height="70" Width="140">
                     <Grid Height="70" Width="140">
                         <StackPanel Margin="0 0 0 15" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Margin="0" Kind="Build" Width="20" Height="20"/>
@@ -76,7 +76,7 @@
                         </StackPanel>
                     </Grid>
                 </ListViewItem>
-                <ListViewItem Height="70" Width="140">
+                <ListViewItem x:Name="ItemAbout" Height="70" Width="140">
                     <Grid Height="70" Width="140">
                         <StackPanel Margin="0 0 0 15" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Margin="0" Kind="About" Width="20" Height="20"/>

@@ -1,6 +1,8 @@
-﻿using Serveur.Controllers;
+﻿using MosaicServeur.Main;
+using Serveur.Controllers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace MosaicServeur
 {
@@ -14,12 +16,17 @@ namespace MosaicServeur
         public Builder()
         {
             InitializeComponent();
+            txtMutex.Text = buildercontroller.getUniqueMutex(18);
         }
 
         private void Load(object sender, RoutedEventArgs e)
         {
-            txtMutex.Text = buildercontroller.getUniqueMutex(18);
-            txtClientTag.Text = "Client01";
+            var i = (ClientsListView.connectedClients() + 1).ToString();
+            txtClientTag.Text = string.Format("Client {0}", int.Parse(i) < 10 ? "0" + i : i);
+            lblLogDir.Foreground = new SolidColorBrush(Colors.LightGray);
+            txtLogDir.IsEnabled = false;
+            chkKeyLogger.IsChecked = false;
+            chkDirHidden.IsEnabled = false;
         }
 
         private void btnTabControl(object sender, RoutedEventArgs e)
@@ -53,5 +60,21 @@ namespace MosaicServeur
             txtMutex.Text = buildercontroller.getUniqueMutex(18);
         }
 
+        private void chkKeyLoggerEvent(object sender, RoutedEventArgs e)
+        {
+            if (chkKeyLogger.IsChecked.Value == true)
+            {
+                txtLogDir.IsEnabled = true;
+                chkDirHidden.IsEnabled = true;
+                lblLogDir.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                txtLogDir.IsEnabled = false;
+                chkDirHidden.IsEnabled = false;
+                chkDirHidden.IsChecked = false;
+                lblLogDir.Foreground = new SolidColorBrush(Colors.LightGray);
+            }
+        }
     }
 }

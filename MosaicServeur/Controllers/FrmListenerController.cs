@@ -46,6 +46,8 @@ namespace Serveur.Controllers
             }
             catch (Exception ex)
             {
+                MessageBox.Show("ICI");
+
                 MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

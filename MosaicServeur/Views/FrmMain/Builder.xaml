@@ -72,17 +72,19 @@
                         <StackPanel Orientation="Vertical">
                             <Label FontWeight="Medium" FontSize="25" Content="Keylogger"></Label>
 
-                            <CheckBox Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11">
+                            <CheckBox Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                                      x:Name="chkKeyLogger" Click="chkKeyLoggerEvent">
                                 Enable keyboard logging.
                             </CheckBox>
 
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Margin="0 15 0 0" Padding="0" FontSize="11" VerticalAlignment="top"
-                           Text="Log directory name:"/>
-                                <TextBox Style="{x:Null}" HorizontalAlignment="Left"  Width="200" />
+                                <TextBlock Margin="0 15 0 0" Padding="0" FontSize="11" VerticalAlignment="top" Text="Log directory name:" 
+                                           x:Name="lblLogDir" Foreground="LightGray"/>
+                                <TextBox Style="{x:Null}" HorizontalAlignment="Left"  Width="200" x:Name="txtLogDir"/>
                             </StackPanel>
 
-                            <CheckBox Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11">
+                            <CheckBox Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                                      x:Name="chkDirHidden">
                                 Set directory to hidden.
                             </CheckBox>
 
@@ -90,12 +92,12 @@
 
 
                             <StackPanel Orientation="Vertical">
-                                <CheckBox x:Name="chkIcon" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11" >
+                                <CheckBox x:Name="chkIcon" Style="{StaticResource MaterialDesignAccentCheckBox}" IsEnabled="False" Background="#4a9ff5" Foreground="black" FontSize="11" >
                                     Change Assembly Icon.
                                 </CheckBox>
                                 <StackPanel Margin="0 0 0 0" VerticalAlignment="Top" Orientation="Horizontal">
                                     <TextBox Style="{x:Null}" Text="" Width="300" IsEnabled="False" />
-                                    <Button Margin="0 0"  Style="{x:Null}" Content="Browse" Width="100"/>
+                                    <Button Margin="0 0"  Style="{x:Null}" IsEnabled="False" Content="Browse" Width="100"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
