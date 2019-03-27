@@ -6,7 +6,7 @@ Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer i
 
 ## Features
 
-* Flat Design UI
+* UI : Flat Design 
 * Tcp Protocol : IPv4 & IPv6
 
 * Spying features :
