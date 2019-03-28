@@ -10,18 +10,18 @@ Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer i
 * Tcp Protocol : IPv4 & IPv6
 
 * Spying features :
-  * Remote Desktop
-  * Remote Shell 
-  * Remote Webcam
-  * Key Logger
-  * Password Recovery
+  * [x] Remote Desktop
+  * [x] Remote Shell 
+  * [x] Remote Webcam
+  * [x] Key Logger
+  * [x] Password Recovery
 
 * System features :
-  * File Manager
-  * Task Manager
-  * Startup Manager
-  * System Information
-  * Administrator elevator
+  * [x] File Manager
+  * [x] Task Manager
+  * [x] Startup Manager
+  * [x] System Information
+  * [x] Administrator elevator
 
 ## Features in coming
 
