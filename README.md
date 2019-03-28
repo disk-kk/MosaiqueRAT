@@ -22,6 +22,7 @@ Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer i
   * [x] Startup Manager
   * [x] System Information
   * [x] Administrator elevator
+  * [x] Registry Editor
 
 ## Features in coming
 
