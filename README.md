@@ -4,6 +4,8 @@
 
 Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer is used.
 
+![alt text](https://github.com/thdal/MosaicRAT/blob/master/Assets/MosaicRAT.png)
+
 ## Features
 
 * UI : Flat Design 
