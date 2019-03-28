@@ -6,8 +6,6 @@
 
 Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer is used.
 
-#
-
 ## Features
 
 * UI : Flat Design 
