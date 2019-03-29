@@ -13,7 +13,7 @@ Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer i
 
 * Manage features :
   * [ ] Uninstall client 
-  * [ ] Close client
+  * [x] Close client
 
 * Spying features :
   * [x] Remote desktop
