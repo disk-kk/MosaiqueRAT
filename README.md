@@ -12,7 +12,6 @@ Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer i
 * Tcp Protocol : IPv4 & IPv6
 
 * Manage features :
-  * [ ] Rename client
   * [ ] Uninstall client 
   * [ ] Close client
 
