@@ -2,7 +2,7 @@
 
 ### Mosaic - Remote administration tools
 
-Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer is used.
+Mosaic is writing in C# under the MVC architecture, ZeroFormatter serializer is used. The wpf was used to create the graphical interface of the server application. this program was written for educational purposes only and I will not be responsible for its use. 
 
 ![alt text](https://github.com/thdal/MosaicRAT/blob/master/Assets/MosaicRAT.png)
 
@@ -36,8 +36,6 @@ Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer i
   * [ ] Send MessageBox
   * [ ] Hide screen
   * [ ] Play song
-
-#
 
 ## Launch Mosaic
 
