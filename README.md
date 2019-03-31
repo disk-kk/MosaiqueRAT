@@ -41,10 +41,10 @@ Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer i
 
 ## Launch Mosaic
 
-For the moment: Open the solution in Your IDE and run the "MosaicServeur"(Server) debugger you will be able to build the stub.
+1. Open the solution in Your IDE.
+2. Run the "MosaicServeur"(Server) release.
+3. Build the stub.
 
 ## Licence
 
 Mosaic is distributed under the MIT License. Thanks to QuasarRAT, njRAT, DarkComet for inspiration.
-
-#
