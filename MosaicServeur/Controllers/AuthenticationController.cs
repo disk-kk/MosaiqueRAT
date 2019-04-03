@@ -27,6 +27,7 @@ namespace Serveur.Controllers
                 client.value.imageIndex = packet.imageIndex;
                 client.value.id = packet.id;
                 client.value.name = packet.name;
+                client.value.clientIdentifier = packet.clientID;
 
                 client.value.downloadDirectory = (checkPathForIllegalChars(client.value.name)) ?
                     Path.Combine(Application.StartupPath, string.Format("Clients\\{0}_{1}\\", client.value.name, client.value.id.Substring(0, 7))) :

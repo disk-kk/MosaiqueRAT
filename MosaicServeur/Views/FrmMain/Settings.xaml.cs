@@ -11,15 +11,16 @@ namespace MosaicServeur
     /// </summary>
     public partial class Settings : UserControl
     {
-        private int _numValue = 0;
-
+        private int PORT = 0;
         private FrmListenerController _frmListenerController;
+        public delegate void UpdateMainUI(bool onOff);        // UPDATE MAIN UI
+        public static event UpdateMainUI updateMainUI;                   // UPDATE MAIN UI
 
         public Settings(FrmListenerController frmListenerController)
         {
-           _frmListenerController = frmListenerController;
+            _frmListenerController = frmListenerController;
             InitializeComponent();
-            txtPort.Text = _numValue.ToString();
+            PORT = ListenerState.listenPort;
         }
 
         private void Load(object sender, RoutedEventArgs e)
@@ -44,12 +45,14 @@ namespace MosaicServeur
                 ListenerState.startListen = true;
                 _frmListenerController.listen(int.Parse(txtPort.Text), chkIPv6.IsChecked.Value);
                 btnListen.Content = "Stop listening";
+                updateMainUI(true);
             }
             else
             {
                 ListenerState.startListen = false;
                 _frmListenerController.stopListening();
                 btnListen.Content = "Start listening";
+                updateMainUI(false);
             }
         }
 
@@ -58,27 +61,40 @@ namespace MosaicServeur
             ListenerState.autoListen = chkStartupConnections.IsChecked.Value;
             ListenerState.showPopup = chkPopupNotification.IsChecked.Value;
             ListenerState.IPv6Support = chkIPv6.IsChecked.Value;
+            ListenerState.listenPort = int.Parse(txtPort.Text);
+        }
+
+        private void btnCancel(object sender, RoutedEventArgs e)
+        {
+            chkStartupConnections.IsChecked = ListenerState.autoListen;
+            chkPopupNotification.IsChecked = ListenerState.showPopup;
+            chkIPv6.IsChecked = ListenerState.IPv6Support;
+            txtPort.Text = ListenerState.listenPort.ToString();
         }
 
         //  NumPort EVENT
-        public int NumValue
+        public int numPort
         {
-            get { return _numValue; }
+            get { return PORT; }
             set
             {
-                _numValue = value;
-                txtPort.Text = value.ToString();
+                if (PORT >= 0)
+                    PORT = value;
+
+                txtPort.Text = PORT.ToString();
             }
         }
 
         private void cmdUp_Click(object sender, RoutedEventArgs e)
         {
-            NumValue++;
+            if ((int.Parse(txtPort.Text)) < 65535)
+                numPort++;
         }
 
         private void cmdDown_Click(object sender, RoutedEventArgs e)
         {
-            NumValue--;
+            if ((int.Parse(txtPort.Text)) > 0)
+                numPort--;
         }
 
         private void txtNum_TextChanged(object sender, TextChangedEventArgs e)
@@ -87,9 +103,21 @@ namespace MosaicServeur
             {
                 return;
             }
+           
+            if (!int.TryParse(txtPort.Text, out PORT))
+            {
+                txtPort.Text = PORT.ToString();
+            }
 
-            if (!int.TryParse(txtPort.Text, out _numValue))
-                txtPort.Text = _numValue.ToString();
+            if ((int.Parse(txtPort.Text) > 65535))
+            {
+                txtPort.Text = 0.ToString();
+            }
+
+            if (!(int.Parse(txtPort.Text) > 0))
+            {
+                txtPort.Text = 0.ToString();
+            }
         }
     }
 }

@@ -4,6 +4,8 @@ namespace Serveur.Models
 {
     public class ClientRegistration
     {
+        public string Identifier { get; set; }
+
         public string Ip { get; set; }
 
         public string Name { get; set; }

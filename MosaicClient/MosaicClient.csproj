@@ -86,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Tools\AuthenticationController.cs" />
     <Compile Include="Controllers\Tools\Boot.cs" />
     <Compile Include="Controllers\Browsers\Chrome.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Packets\ClientPackets\GetStartupItemsResponse.cs" />
     <Compile Include="Packets\ClientPackets\GetSysInfoResponse.cs" />
     <Compile Include="Packets\ClientPackets\SetStatus.cs" />
+    <Compile Include="Packets\ServerPackets\CloseClient.cs" />
     <Compile Include="Packets\ServerPackets\DoAskElevate.cs" />
     <Compile Include="Packets\ServerPackets\DoDownloadFileCancel.cs" />
     <Compile Include="Packets\ClientPackets\DoDownloadFileResponse.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Packets\ServerPackets\GetSysInfo.cs" />
     <Compile Include="Packets\ServerPackets\GetWebcam.cs" />
     <Compile Include="Packets\ServerPackets\SetAuthenticationSuccess.cs" />
+    <Compile Include="Packets\ServerPackets\SetClientIdentifier.cs" />
     <Compile Include="Packets\ServerPackets\StopWebcam.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

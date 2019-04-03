@@ -12,6 +12,9 @@ namespace MosaicServeur
     public partial class Builder : UserControl
     {
         private FrmBuilderController buildercontroller = new FrmBuilderController();
+        private int PORT = 0;
+        private int RECONNECT = 0;
+
 
         public Builder()
         {
@@ -21,12 +24,24 @@ namespace MosaicServeur
 
         private void Load(object sender, RoutedEventArgs e)
         {
+            GridCursor.Margin = new Thickness(0 + (150 * 0), 20, 0, 0);
+            tcSample.SelectedIndex = 0;
             var i = (ClientsListView.connectedClients() + 1).ToString();
-            txtClientTag.Text = string.Format("Client {0}", int.Parse(i) < 10 ? "0" + i : i);
+            txtClientID.Text = string.Format("Client {0}", int.Parse(i) < 10 && int.Parse(i) > 0 ? "0" + i : i);
             lblLogDir.Foreground = new SolidColorBrush(Colors.LightGray);
             txtLogDir.IsEnabled = false;
             chkKeyLogger.IsChecked = false;
             chkDirHidden.IsEnabled = false;
+            chkAutoStart.IsChecked = false;
+            txtStartupName.IsEnabled = false;
+            txtStartupName.Text = "";
+            radioGroup.IsEnabled = false;
+            spSubDirectory.IsEnabled = false;
+            spFileName.IsEnabled = false;
+            chkInstall.IsChecked = false;
+            lblDirectory.Foreground = new SolidColorBrush(Colors.LightGray);
+            lblSubDirectory.Foreground = new SolidColorBrush(Colors.LightGray);
+            lblFileName.Foreground = new SolidColorBrush(Colors.LightGray);
         }
 
         private void btnTabControl(object sender, RoutedEventArgs e)
@@ -44,6 +59,7 @@ namespace MosaicServeur
                     tcSample.SelectedIndex = 1;
                     break;
                 case 2:
+                    tcSample.SelectedIndex = 2;
                     break;
                 default:
                     break;
@@ -52,7 +68,8 @@ namespace MosaicServeur
 
         private void btnBuild(object sender, RoutedEventArgs e)
         {
-            buildercontroller.create_stub(txtHost.Text, txtPort.Text, txtMutex.Text, txtRecoTries.Text);
+            buildercontroller.create_stub(txtHost.Text, txtPort.Text, txtMutex.Text, txtRecoTries.Text, txtClientID.Text, // Connexion Settings
+                (chkKeyLogger.IsChecked).ToString(), txtLogDir.Text, (chkAutoStart.IsChecked).ToString(), txtStartupName.Text); // Standard Settings
         }
 
         private void btnMutex(object sender, RoutedEventArgs e)
@@ -74,6 +91,131 @@ namespace MosaicServeur
                 chkDirHidden.IsEnabled = false;
                 chkDirHidden.IsChecked = false;
                 lblLogDir.Foreground = new SolidColorBrush(Colors.LightGray);
+            }
+        }
+
+        private void chkAutoStartEvent(object sender, RoutedEventArgs e)
+        {
+            if (chkAutoStart.IsChecked.Value == true)
+            {
+                txtStartupName.IsEnabled = true;
+            }
+            else
+            {
+                txtStartupName.IsEnabled = false;
+            }
+        }
+
+        private void chkInstallEvent(object sender, RoutedEventArgs e)
+        {
+            if (chkInstall.IsChecked.Value == true)
+            {
+                radioGroup.IsEnabled = true;
+                spSubDirectory.IsEnabled = true;
+                spFileName.IsEnabled = true;
+
+                lblDirectory.Foreground = new SolidColorBrush(Colors.Black);
+                lblSubDirectory.Foreground = new SolidColorBrush(Colors.Black);
+                lblFileName.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                radioGroup.IsEnabled = false;
+                spSubDirectory.IsEnabled = false;
+                spFileName.IsEnabled = false;
+                lblDirectory.Foreground = new SolidColorBrush(Colors.LightGray);
+                lblSubDirectory.Foreground = new SolidColorBrush(Colors.LightGray);
+                lblFileName.Foreground = new SolidColorBrush(Colors.LightGray);
+            }
+        }
+
+        //  NumPort EVENT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        public int numPort
+        {
+            get { return PORT; }
+            set
+            {
+                if (PORT >= 0)
+                    PORT = value;
+
+                txtPort.Text = PORT.ToString();
+            }
+        }
+
+        private void cmdUp_Click(object sender, RoutedEventArgs e)
+        {
+            if ((int.Parse(txtPort.Text)) < 65535)
+                numPort++;
+        }
+
+        private void cmdDown_Click(object sender, RoutedEventArgs e)
+        {
+            if ((int.Parse(txtPort.Text)) > 0)
+                numPort--;
+        }
+
+        private void txtNum_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtPort == null)
+            {
+                return;
+            }
+
+            if (!int.TryParse(txtPort.Text, out PORT))
+            {
+                txtPort.Text = PORT.ToString();
+            }
+
+            if ((int.Parse(txtPort.Text) > 65535))
+            {
+                txtPort.Text = 0.ToString();
+            }
+
+            if (!(int.Parse(txtPort.Text) > 0))
+            {
+                txtPort.Text = 0.ToString();
+            }
+        }
+
+        //  Reconnect Tries EVENT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        public int recoTries
+        {
+            get { return RECONNECT; }
+            set
+            {
+                if (RECONNECT >= 0)
+                    RECONNECT = value;
+
+                txtRecoTries.Text = RECONNECT.ToString();
+            }
+        }
+
+        private void recoCmdUp_Click(object sender, RoutedEventArgs e)
+        {
+                recoTries++;
+        }
+
+        private void recoCmdDown_Click(object sender, RoutedEventArgs e)
+        {
+            if ((int.Parse(txtRecoTries.Text)) > 0)
+                recoTries--;
+        }
+
+        private void txtReco_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtRecoTries == null)
+            {
+                return;
+            }
+
+            if (!int.TryParse(txtRecoTries.Text, out RECONNECT))
+            {
+                txtRecoTries.Text = RECONNECT.ToString();
+            }
+
+            if (!(int.Parse(txtRecoTries.Text) > 0))
+            {
+                txtRecoTries.Text = RECONNECT.ToString();
             }
         }
     }
