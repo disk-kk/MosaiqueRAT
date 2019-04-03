@@ -2,34 +2,46 @@
 
 ### Mosaic - Remote administration tools
 
-Mosaic is writing in C# under the "MVC" architecture, ZeroFormatter serializer is used.
+Mosaic is writing in C# under the MVC architecture, ZeroFormatter serializer is used. The wpf was used to create the graphical interface of the server application. This program was written for educational purposes only and I will not be responsible for its use and I ask you please not to harm anyone unnecessarily. 
+
+![alt text](https://github.com/thdal/MosaicRAT/blob/master/Assets/MosaicRAT.png)
 
 ## Features
 
 * UI : Flat Design 
 * Tcp Protocol : IPv4 & IPv6
 
+* Manage features :
+  * [ ] Uninstall client 
+  * [x] Close client
+
 * Spying features :
-  * Remote Desktop
-  * Remote Shell 
-  * Remote Webcam
-  * Key Logger
-  * Password Recovery
+  * [x] Remote desktop
+  * [x] Remote shell 
+  * [x] Remote webcam
+  * [x] Key logger
+  * [x] Password recovery
 
 * System features :
-  * File Manager
-  * Task Manager
-  * Startup Manager
-  * System Information
-  * Administrator elevator
-
-## Features in coming
-
-* Fun features
+  * [x] File manager
+  * [x] Task manager
+  * [x] Startup manager
+  * [x] System information
+  * [x] Administrator elevator
+  * [ ] Registry editor
+  
+* Fun Features
+  * [ ] Open/Close CD drive
+  * [ ] Remote chat
+  * [ ] Send MessageBox
+  * [ ] Hide screen
+  * [ ] Play song
 
 ## Launch Mosaic
 
-For the moment: Open the solution in Your IDE and run the "MosaicServeur"(Server) debugger you will be able to build the stub.
+1. Open the solution in Your IDE.
+2. Run the "MosaicServeur"(Server) release.
+3. Build the stub.
 
 ## Licence
 
