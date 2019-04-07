@@ -10,7 +10,7 @@ namespace MosaicServeur.Views.FrmMain
         public About()
         {
             InitializeComponent();
-            lblAbout.Text = Properties.Resources.License;
+            lblAbout.Text = MosaiqueServeur.Properties.Resources.License;
         }
     }
 }

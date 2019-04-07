@@ -42,7 +42,7 @@ namespace MosaicServeur
             spSubDirectory.IsEnabled = false;
             spFileName.IsEnabled = false;
             chkInstall.IsChecked = false;
-            rdbAppData.IsChecked = true;
+            radio1.IsChecked = true;
             chkHideSubDirI.IsChecked = false;
             chkHideFileI.IsChecked = false;
             lblDirectory.Foreground = new SolidColorBrush(Colors.LightGray);

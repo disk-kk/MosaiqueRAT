@@ -16,7 +16,7 @@ namespace MosaicServeur.Views.FrmMain
         {
             InitializeComponent();
             _agree = false;
-            lblTermsOfUse.Text = (Properties.Resources.TermsofUse).ToUpper();
+            lblTermsOfUse.Text = (MosaiqueServeur.Properties.Resources.TermsofUse).ToUpper();
         }
 
         private void FormLoad(object sender, RoutedEventArgs e)

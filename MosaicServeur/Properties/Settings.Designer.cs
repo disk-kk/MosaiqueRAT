@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MosaicServeur.Properties {
+namespace MosaiqueServeur.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -133,7 +133,7 @@
                                 <TextBlock x:Name="lblDirectory" Foreground="LightGray" Margin="0 15 0 0" Padding="0" FontSize="11" VerticalAlignment="top" 
                                            Text="Directory :" />
                                 <StackPanel Margin="15 0 0 0">
-                                    <RadioButton x:Name="radio1" Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 15 0 0" GroupName="Os" x:Name="rdbAppData" Content="User / AppData" IsChecked="True"/>
+                                    <RadioButton x:Name="radio1" Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 15 0 0" GroupName="Os" Content="User / AppData" IsChecked="True"/>
                                     <RadioButton x:Name="radio2"  Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="Program Files"/>
                                     <RadioButton x:Name="radio3"  Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="System"/>
                                 </StackPanel>

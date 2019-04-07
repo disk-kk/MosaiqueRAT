@@ -7,11 +7,11 @@ using System.Windows;
 // Les informations générales relatives à un assembly dépendent de
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("MosaicServeur")]
+[assembly: AssemblyTitle("MosaiqueServeur")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MosaicServeur")]
+[assembly: AssemblyProduct("MosaiqueServeur")]
 [assembly: AssemblyCopyright("Copyright © thdal 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
