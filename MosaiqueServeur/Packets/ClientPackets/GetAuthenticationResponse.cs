@@ -64,7 +64,7 @@ namespace Serveur.Packets.ClientPackets
             this.clientID = clientID;
         }
 
-        public void Execute(ClientMosaic client)
+        public void Execute(ClientMosaique client)
         {
             client.send(this);
         }

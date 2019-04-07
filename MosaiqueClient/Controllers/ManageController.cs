@@ -9,7 +9,7 @@ namespace Client.Controllers
     static class ManageController
     {
 
-        public static void setClientIdentifier(SetClientIdentifier packet, ClientMosaic client)
+        public static void setClientIdentifier(SetClientIdentifier packet, ClientMosaique client)
         {
             
         }

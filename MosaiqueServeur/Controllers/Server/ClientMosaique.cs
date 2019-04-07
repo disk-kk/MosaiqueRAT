@@ -1,23 +1,22 @@
-﻿using Client.Controllers.Tools;
-using Client.Packets;
+﻿using Serveur.Packets;
+using Serveur.Packets.ClientPackets;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.Windows.Forms;
 using ZeroFormatter;
 
-namespace Client.Controllers
+namespace Serveur.Controllers.Server
 {
-    public class ClientMosaic
+    public class ClientMosaique
     {
         //SOCKET
-        private Socket _clientSocket;
-        private int PORT;
-        private string HOST;
+        public Socket _clientSocket;
+        public IPEndPoint endPoint;
         //BUFFER
         private const int BUFFER_SIZE = 1084 * 16;
-        public int HEADER_SIZE { get { return 4; } } // 4B   
+        public int HEADER_SIZE { get { return 4; } } // 4B
         //RECEIVE
         private readonly Queue<byte[]> _readBuffers = new Queue<byte[]>();
         private readonly object _readingPacketsLock = new object();
@@ -43,68 +42,30 @@ namespace Client.Controllers
         private bool _sendingPackets;
         private readonly object _sendingPacketsLock = new object();
         //STATE
-        public static bool EXITING { get; private set; }
-        public static bool testexit = true;
+        public bool Exiting { get; private set; }
         public bool authenticated { get; private set; }
         public bool connected { get; private set; }
+        public ClientState value { get; set; }
+        //CALLBACK
+        public delegate void DgvUpdater(ClientMosaique client, bool addOrRem);        // ADD OR REMOVE CLIENT INTO DATAGRIDVIEW
+        public static event DgvUpdater DvgUpdater;                   // ADD OR REMOVE CLIENT INTO DATAGRIDVIEW
 
         //CONSTRUCTEUR
-        public ClientMosaic(string host, int port)
+        public ClientMosaique(Socket socket)
         {
-            HOST = host;
-            PORT = port;
+            _clientSocket = socket;
+
+            endPoint = (IPEndPoint)_clientSocket.RemoteEndPoint;
+
+            value = new ClientState();
+
+            authenticated = false;
+
+            _readBuffer = new byte[BUFFER_SIZE];
+
+            _clientSocket.BeginReceive(_readBuffer, 0, _readBuffer.Length, SocketFlags.None, receiveCallBack, null);
         }
 
-        //CONNECT TO SERVER
-        public void connect()
-        {
-            while (!EXITING)
-            {
-                if (!connected)
-                {
-                    try
-                    {
-                        disconnect();
-
-                        _readBuffer = new byte[BUFFER_SIZE];
-
-                        _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-                        _clientSocket.Connect(HOST, PORT);
-
-                        _tempHeader = new byte[HEADER_SIZE]; // ?????
-
-
-                        if (_clientSocket.Connected)
-                        {
-                            _clientSocket.BeginReceive(_readBuffer, 0, _readBuffer.Length, SocketFlags.None, receiveCallBack, null);
-                            connected = true;
-                        }
-
-                        //Application.DoEvents();
-
-                    }
-                    catch (Exception)
-                    {
-                        disconnect();
-                    }
-                }
-
-                while (connected) // hold client open
-                {
-                    Application.DoEvents();
-                    Thread.Sleep(2500);
-                }
-
-                if (EXITING)
-                {
-                    disconnect();
-                    return;
-                }
-            }
-        }
-
-        #region RECEIVE
         private void receiveCallBack(IAsyncResult AR)
         {
             int received;
@@ -134,7 +95,7 @@ namespace Client.Controllers
 
             try
             {
-                Array.Copy(_readBuffer, buffer, buffer.Length);               
+                Array.Copy(_readBuffer, buffer, buffer.Length);
             }
             catch
             {
@@ -168,7 +129,7 @@ namespace Client.Controllers
                 disconnect();
             }
         }
-
+        #region RECEIVE
         private void asyncReceive(object state)
         {
             while (true)
@@ -177,7 +138,7 @@ namespace Client.Controllers
 
                 lock (_readBuffers)
                 {
-                    if(_readBuffers.Count == 0)
+                    if (_readBuffers.Count == 0)
                     {
                         lock (_readingPacketsLock)
                         {
@@ -198,7 +159,7 @@ namespace Client.Controllers
                     {
                         case ReceiveType.Header: // PayloadLength
                             {
-                                if(_readableDataLen >= HEADER_SIZE)
+                                if (_readableDataLen >= HEADER_SIZE)
                                 {
                                     int headerLength = (_appendHeader) ? HEADER_SIZE - _tempHeaderOffset : HEADER_SIZE;
 
@@ -219,7 +180,7 @@ namespace Client.Controllers
                                             }
                                             _payloadLen = BitConverter.ToInt32(_tempHeader, 0);
                                             _tempHeaderOffset = 0;
-                                            _appendHeader = false;                                            
+                                            _appendHeader = false;
                                         }
                                         else
                                         {
@@ -282,7 +243,7 @@ namespace Client.Controllers
                                 _readOffset += length;
                                 _readableDataLen -= length;
 
-                                if(_writeOffset == _payloadLen)
+                                if (_writeOffset == _payloadLen)
                                 {
                                     bool isError = _payloadBuffer.Length == 0;
 
@@ -311,7 +272,7 @@ namespace Client.Controllers
                                     _writeOffset = 0;
                                 }
 
-                                if(_readableDataLen == 0)
+                                if (_readableDataLen == 0)
                                 {
                                     process = false;
                                 }
@@ -320,7 +281,7 @@ namespace Client.Controllers
                     }
                 }
 
-                if(_receiveState == ReceiveType.Header)
+                if (_receiveState == ReceiveType.Header)
                 {
                     _writeOffset = 0;
                 }
@@ -329,6 +290,8 @@ namespace Client.Controllers
             }
         }
         #endregion
+
+        
 
         #region SEND
         public void send<T>(T packet) where T : IPackets
@@ -440,13 +403,17 @@ namespace Client.Controllers
 
             if (!authenticated)
             {
-                if (type == TypePackets.GetAuthentication)
-                {
-                    AuthenticationController.HandleGetAuthentication(this);
-                }
-                else if (type == TypePackets.SetAuthenticationSuccess)
+                if (type == TypePackets.GetAuthenticationResponse)
                 {
                     authenticated = true;
+                    new Packets.ServerPackets.SetAuthenticationSuccess().Execute(this); // finish handshake
+                    AuthenticationController.HandleGetAuthenticationResponse(this, (GetAuthenticationResponse)packet);
+                    DvgUpdater(this, true);
+                    authenticated = true;
+                }
+                else
+                {
+                    disconnect();
                 }
                 return;
             }
@@ -467,16 +434,16 @@ namespace Client.Controllers
                 _payloadLen = 0;
                 _payloadBuffer = null;
                 _receiveState = ReceiveType.Header;
-            } 
+            }
 
-            connected = false;
+            if (value != null)
+            {
+                value = null;
+            }
+
             authenticated = false;
-        }
 
-        public void Exit()
-        {
-            EXITING = true;
-            disconnect();
+            DvgUpdater(this, false);
         }
     }
 }

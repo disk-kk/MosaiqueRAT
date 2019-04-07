@@ -12,7 +12,7 @@ namespace Client.Controllers
 {
     public static class RemoteWebcamController
     {
-        public static ClientMosaic c;
+        public static ClientMosaique c;
         private static FilterInfoCollection videoCaptureDevices;
         private static VideoCaptureDevice finalVideo;
         public static bool needsCapture;
@@ -20,7 +20,7 @@ namespace Client.Controllers
         public static int quality;
         public static bool webcamStarted;
 
-        public static void getAvailableWebcams(GetAvailableWebcams command, ClientMosaic client)
+        public static void getAvailableWebcams(GetAvailableWebcams command, ClientMosaique client)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Client.Controllers
             }
         }
 
-        public static void getWebcam(GetWebcam command, ClientMosaic client)
+        public static void getWebcam(GetWebcam command, ClientMosaique client)
         {
             c = client;
             needsCapture = true;

@@ -6,7 +6,7 @@ namespace Serveur.Packets
 {
     public static class PacketHandler
     {
-        public static void packetChecker(ClientMosaic client, IPackets packet)
+        public static void packetChecker(ClientMosaique client, IPackets packet)
         {
             var type = packet.Type;
 

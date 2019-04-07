@@ -27,7 +27,7 @@ namespace Client.Controllers.Tools
         public static bool vistaOrHigher = Win32NT && Environment.OSVersion.Version.Major >= 6;
         public static bool Win64Bit =  Environment.Is64BitOperatingSystem;
 
-        public static void HandleGetAuthentication(ClientMosaic client)
+        public static void HandleGetAuthentication(ClientMosaique client)
         {
             geoLocationInitialize();            
             new GetAuthenticationResponse("01", getOperatingSystem(), getAccountType(),

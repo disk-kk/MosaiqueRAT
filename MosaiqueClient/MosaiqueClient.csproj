@@ -105,7 +105,7 @@
     <Compile Include="Controllers\Browsers\Opera.cs" />
     <Compile Include="Controllers\PasswordRecoveryController.cs" />
     <Compile Include="Controllers\RemoteWebcamController.cs" />
-    <Compile Include="Controllers\Server\ClientMosaic.cs" />
+    <Compile Include="Controllers\Server\ClientMosaique.cs" />
     <Compile Include="Controllers\RemoteShellController.cs" />
     <Compile Include="Controllers\StartupManagerController.cs" />
     <Compile Include="Controllers\Tools\CommandController.cs" />

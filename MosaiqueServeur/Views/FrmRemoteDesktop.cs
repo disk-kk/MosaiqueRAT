@@ -8,11 +8,11 @@ namespace Serveur.Views
 {
     public partial class FrmRemoteDesktop : Form
     {
-        private ClientMosaic _client;
+        private ClientMosaique _client;
         private int _screens;
         public bool stopRdp = false;
 
-        public FrmRemoteDesktop(ClientMosaic client)
+        public FrmRemoteDesktop(ClientMosaique client)
         {
             client.value.frmRdp = this;
             _client = client;

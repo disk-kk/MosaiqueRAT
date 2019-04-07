@@ -18,6 +18,6 @@ namespace Serveur.Models
 
         public string Status { get; set; }
 
-        public ClientMosaic Client { get; set; }
+        public ClientMosaique Client { get; set; }
     }
 }

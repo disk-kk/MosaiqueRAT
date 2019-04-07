@@ -11,7 +11,7 @@ namespace Serveur.Controllers
     {
         private static readonly char[] _illegalChars = Path.GetInvalidPathChars().Union(Path.GetInvalidFileNameChars()).ToArray();
 
-        public static void HandleGetAuthenticationResponse(ClientMosaic client, GetAuthenticationResponse packet)
+        public static void HandleGetAuthenticationResponse(ClientMosaique client, GetAuthenticationResponse packet)
         {
             if (client.endPoint.Address.ToString() == "255.255.255.255")
                 return;

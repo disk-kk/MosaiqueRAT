@@ -12,7 +12,7 @@ namespace Client.Controllers
     {
         public static bool is64Bit = Environment.Is64BitOperatingSystem;
 
-        public static void getStartupItems(GetStartupItems packet, ClientMosaic client)
+        public static void getStartupItems(GetStartupItems packet, ClientMosaique client)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Client.Controllers
 
         }
 
-        public static void doStartupItemAdd(DoStartupItemAdd packet, ClientMosaic client)
+        public static void doStartupItemAdd(DoStartupItemAdd packet, ClientMosaique client)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace Client.Controllers
             }
         }
 
-        public static void doStartupItemRemove(DoStartupItemRemove packet, ClientMosaic client)
+        public static void doStartupItemRemove(DoStartupItemRemove packet, ClientMosaique client)
         {
             try
             {

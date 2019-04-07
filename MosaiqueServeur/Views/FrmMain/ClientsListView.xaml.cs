@@ -16,7 +16,7 @@ namespace MosaicServeur.Main
     public partial class ClientsListView : UserControl
     {
         private bool _processingClientConnections;
-        private readonly Queue<KeyValuePair<ClientMosaic, bool>> _clientConnections = new Queue<KeyValuePair<ClientMosaic, bool>>();
+        private readonly Queue<KeyValuePair<ClientMosaique, bool>> _clientConnections = new Queue<KeyValuePair<ClientMosaique, bool>>();
         private readonly object _processingClientConnectionsLock = new object();
         private readonly object _lockClients = new object(); // lock for clients-listview
         private readonly object _clientsLock = new object();
@@ -25,7 +25,7 @@ namespace MosaicServeur.Main
         public ClientsListView()
         {           
             InitializeComponent();
-            ClientMosaic.DvgUpdater += dgvUpdater;
+            ClientMosaique.DvgUpdater += dgvUpdater;
             clientsCount = 0;
         }
 
@@ -147,7 +147,7 @@ namespace MosaicServeur.Main
         }
 
         /// :: GET CLIENT FROM DATAGRIDVIEW :: ///
-        public ClientMosaic getClient()
+        public ClientMosaique getClient()
         {
             try
             {
@@ -161,11 +161,11 @@ namespace MosaicServeur.Main
 
         #region UpdateClientsOfListView
         // :: GET - ADD - REMOVE FROM DATAGRIDVIEW :: //
-        public void dgvUpdater(ClientMosaic client, bool addOrRem)
+        public void dgvUpdater(ClientMosaique client, bool addOrRem)
         {
-            Dispatcher.BeginInvoke(new Action<ClientMosaic, bool>(DgvUpdater), client, addOrRem);
+            Dispatcher.BeginInvoke(new Action<ClientMosaique, bool>(DgvUpdater), client, addOrRem);
         }
-        public void DgvUpdater(ClientMosaic client, bool addOrRem)
+        public void DgvUpdater(ClientMosaique client, bool addOrRem)
         {
             if (client != null)
             {
@@ -180,12 +180,12 @@ namespace MosaicServeur.Main
             }
         }
 
-        private void ClientConnected(ClientMosaic client)
+        private void ClientConnected(ClientMosaique client)
         {
             lock (_clientConnections)
             {
                 if (!FrmListenerController.LISTENING) return;
-                _clientConnections.Enqueue(new KeyValuePair<ClientMosaic, bool>(client, true));
+                _clientConnections.Enqueue(new KeyValuePair<ClientMosaique, bool>(client, true));
             }
 
             lock (_processingClientConnectionsLock)
@@ -198,12 +198,12 @@ namespace MosaicServeur.Main
             }
         }
 
-        private void ClientDisconnected(ClientMosaic client)
+        private void ClientDisconnected(ClientMosaique client)
         {
             lock (_clientConnections)
             {
                 if (!FrmListenerController.LISTENING) return;
-                _clientConnections.Enqueue(new KeyValuePair<ClientMosaic, bool>(client, false));
+                _clientConnections.Enqueue(new KeyValuePair<ClientMosaique, bool>(client, false));
             }
 
             lock (_processingClientConnectionsLock)
@@ -221,7 +221,7 @@ namespace MosaicServeur.Main
         {
             while (true)
             {
-                KeyValuePair<ClientMosaic, bool> client;
+                KeyValuePair<ClientMosaique, bool> client;
                 lock (_clientConnections)
                 {
                     if (!FrmListenerController.LISTENING)
@@ -258,7 +258,7 @@ namespace MosaicServeur.Main
             }
         }
 
-        private void addClientToListView(ClientMosaic client)
+        private void addClientToListView(ClientMosaique client)
         {
             if (client == null) return;
 
@@ -278,7 +278,7 @@ namespace MosaicServeur.Main
             }
         }
 
-        private void removeClientFromListView(ClientMosaic client)
+        private void removeClientFromListView(ClientMosaique client)
         {
             if (client == null) return;
 
@@ -305,7 +305,7 @@ namespace MosaicServeur.Main
         #endregion
 
         //TOOLS 
-        public string SetWindowTitle(string title, ClientMosaic c)
+        public string SetWindowTitle(string title, ClientMosaique c)
         {
             return string.Format("{0} - {1} - [{2}:{3}]", title, c.value.name, c.endPoint.Address.ToString(), c.endPoint.Port.ToString());
         }

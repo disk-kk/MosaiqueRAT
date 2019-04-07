@@ -12,12 +12,12 @@ namespace Serveur.Views
 {
     public partial class FrmFileManager : Form
     {
-        private readonly ClientMosaic _client;
+        private readonly ClientMosaique _client;
         private const int TRANSFER_STATUS = 2;
         private const int TRANSFER_TYPE = 1;
         private const int TRANSFER_ID = 0;
 
-        public FrmFileManager(ClientMosaic client)
+        public FrmFileManager(ClientMosaique client)
         {
             _client = client;
             _client.value.frmFm = this;

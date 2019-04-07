@@ -184,7 +184,7 @@
     <Compile Include="Controllers\FrmStartupManagerController.cs" />
     <Compile Include="Controllers\FrmSysInfoController.cs" />
     <Compile Include="Controllers\FrmTaskManagerController.cs" />
-    <Compile Include="Controllers\Server\ClientMosaic.cs" />
+    <Compile Include="Controllers\Server\ClientMosaique.cs" />
     <Compile Include="Controllers\Server\ClientState.cs" />
     <ApplicationDefinition Include="Views\FrmMain\App.xaml">
       <Generator>MSBuild:Compile</Generator>

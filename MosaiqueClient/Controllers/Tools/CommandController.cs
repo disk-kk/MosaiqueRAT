@@ -6,7 +6,7 @@ namespace Client.Controllers.Tools
 {
     public static class CommandController
     {
-        public static void doAskElevate(DoAskElevate packet, ClientMosaic client)
+        public static void doAskElevate(DoAskElevate packet, ClientMosaique client)
         {
             if(AuthenticationController.getAccountType() != "Admin")
             {
