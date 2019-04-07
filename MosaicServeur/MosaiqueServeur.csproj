@@ -325,8 +325,5 @@
   <ItemGroup>
     <Resource Include="Assets\MainIcon\MLogo2.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TermsOfUse.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

