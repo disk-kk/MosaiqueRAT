@@ -4,7 +4,7 @@
 
 Mosaique is writing in C# under the MVC architecture, ZeroFormatter serializer is used. The wpf was used to create the graphical interface of the server application. This program was written for educational purposes only and I will not be responsible for its use and I ask you please not to harm anyone unnecessarily. 
 
-![alt text](https://github.com/thdal/MosaiqueRAT/blob/master/Assets/MosaicRAT.png)
+![alt text](https://github.com/thdal/MosaiqueRAT/blob/master/Github/Mosaique.png)
 
 ## Features
 
@@ -12,7 +12,7 @@ Mosaique is writing in C# under the MVC architecture, ZeroFormatter serializer i
 * Tcp Protocol : IPv4 & IPv6
 
 * Manage features :
-  * [ ] Uninstall client 
+  * [x] Uninstall client 
   * [x] Close client
 
 * Spying features :
@@ -20,12 +20,12 @@ Mosaique is writing in C# under the MVC architecture, ZeroFormatter serializer i
   * [x] Remote shell 
   * [x] Remote webcam
   * [x] Key logger
-  * [x] Password recovery
+  * [x] Password recovery //Broken
 
 * System features :
   * [x] File manager
   * [x] Task manager
-  * [x] Startup manager
+  * [x] Startup manager //Broken
   * [x] System information
   * [x] Administrator elevator
   * [ ] Registry editor
