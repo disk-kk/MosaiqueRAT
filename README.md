@@ -4,7 +4,7 @@
 
 Mosaique is writing in C# under the MVC architecture, ZeroFormatter serializer is used. The wpf was used to create the graphical interface of the server application. This program was written for educational purposes only and I will not be responsible for its use and I ask you please not to harm anyone unnecessarily. 
 
-![alt text](https://github.com/thdal/MosaiqueRAT/blob/master/Github/MosaiqueMainV2.png)
+![alt text](https://github.com/thdal/MosaiqueRAT/blob/master/Github/Mosaique.png)
 
 ## Features
 
