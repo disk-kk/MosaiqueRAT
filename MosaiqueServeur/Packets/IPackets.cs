@@ -1,4 +1,5 @@
 ﻿using MosaicServeur.Packets.ServerPackets;
+using MosaiqueServeur.Packets.ServerPackets;
 using Serveur.Packets.ClientPackets;
 using Serveur.Packets.ServerPackets;
 using ZeroFormatter;
@@ -10,6 +11,7 @@ namespace Serveur.Packets
         SetStatus, // Set Status
         DoAskElevate, // Run as Administrator
         SetClientIdentifier, // Set Client Identifier
+        UninstallClient, // Unisntall Client
         CloseClient, // Close Client
         GetAuthentication, GetAuthenticationResponse, SetAuthenticationSuccess, // Authentication
         GetMonitors, GetMonitorsResponse, GetDesktop, GetDesktopResponse, // Remote desktop
@@ -26,7 +28,8 @@ namespace Serveur.Packets
     [Union(typeof(SetStatus), // Set Status
         typeof(DoAskElevate), // Run as Administrator
         typeof(SetClientIdentifier), // Set Client Identifier
-        typeof(CloseClient),
+        typeof(UninstallClient), // Uninstall Client
+        typeof(CloseClient), // Close Client
         typeof(GetAuthentication), typeof(GetAuthenticationResponse), typeof(SetAuthenticationSuccess), // Authentification
         typeof(GetMonitors), typeof(GetMonitorsResponse), typeof(GetDesktop), typeof(GetDesktopResponse), // Remote Desktop
         typeof(GetExecuteShellCmd), typeof(GetExecuteShellCmdResponse), // Remote Shell

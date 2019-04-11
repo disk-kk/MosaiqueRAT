@@ -3,12 +3,10 @@ using MosaicServeur.Views.FrmMain;
 using Serveur.Controllers;
 using Serveur.Models;
 using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace MosaicServeur
 {
@@ -43,7 +41,7 @@ namespace MosaicServeur
             {
                 ListenerState.startListen = true;
                 _frmListenerController.listen(ListenerState.listenPort, ListenerState.IPv6Support);
-                pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pipe;
+                pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LightbulbOn;
             }
             // >> UserControls >>
             _settings = new Settings(_frmListenerController);
@@ -101,24 +99,32 @@ namespace MosaicServeur
             }));
         }
 
+        public void setWindowTitle(int connectedClients)
+        {
+            this.Dispatcher.Invoke(new Action(delegate
+            {
+                this.Title = string.Format("Mosaique - [ Online Clients : {0} ]", connectedClients.ToString());
+            }));
+        }
+
         public void UIupdater(bool onOff)
         {
             Dispatcher.Invoke(new Action<bool>(Updater),onOff);
         }
         public void Updater(bool onOff)
         {
-            if(onOff == true)
+            if (onOff == true)
             {
                 pipeIcon.Dispatcher.BeginInvoke(new Action(delegate
                 {
-                    pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pipe;
+                    pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LightbulbOn;
                 }));
             }
             else
             {
                 pipeIcon.Dispatcher.BeginInvoke(new Action(delegate
                 {
-                    pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.PipeDisconnected;
+                    pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Lightbulb;
                 }));
             }
         }

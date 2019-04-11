@@ -39,15 +39,13 @@ namespace Serveur.Controllers
                     }
 
                     _serverSocket.Listen(1000);
-                    MosaicServeur.MainWindow.instance.setListeningStatus("Mosaic is listening on port " + port + ".");
+                    MosaicServeur.MainWindow.instance.setListeningStatus("Mosaique is listening on port " + port + ".");
                     LISTENING = true;
                     _serverSocket.BeginAccept(new AsyncCallback(acceptClient), null);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ICI");
-
                 MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -60,7 +58,7 @@ namespace Serveur.Controllers
                 _serverSocket.Close();
                 _serverSocket = null;
                 LISTENING = false;
-                MosaicServeur.MainWindow.instance.setListeningStatus("Mosaic no longer listening on any port.");
+                MosaicServeur.MainWindow.instance.setListeningStatus("Mosaique no longer listening on any port.");
             }
         }
 

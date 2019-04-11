@@ -17,6 +17,10 @@ namespace Client.Packets
             {
                 ManageController.setClientIdentifier((SetClientIdentifier)packet, client);
             }
+            else if (type == TypePackets.UninstallClient)
+            {
+                ClientUninstallerController.uninstall(client);
+            }
             else if (type == TypePackets.CloseClient)
             {
                 ManageController.CloseClient();

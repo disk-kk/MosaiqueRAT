@@ -31,6 +31,15 @@ namespace MosaicServeur.Main
 
         // MANAGE Event
 
+        private void UninstallClientMenuItem(object sender, RoutedEventArgs e)
+        {
+            if (lvClients.Items.Count != 0)
+            {
+                if (getClient() != null)
+                    new MosaiqueServeur.Packets.ServerPackets.UninstallClient().Execute(getClient());
+            }
+        }
+
         private void CloseClientMenuItem(object sender, RoutedEventArgs e)
         {
             if(lvClients.Items.Count != 0)
@@ -248,10 +257,12 @@ namespace MosaicServeur.Main
                         case true:
                             addClientToListView(client.Key);
                             clientsCount++;
+                            MosaicServeur.MainWindow.instance.setWindowTitle(clientsCount);
                             break;
                         case false:
                             removeClientFromListView(client.Key);
                             clientsCount--;
+                            MosaicServeur.MainWindow.instance.setWindowTitle(clientsCount);
                             break;
                     }
                 }

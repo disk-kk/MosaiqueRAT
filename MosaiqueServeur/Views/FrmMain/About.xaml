@@ -16,8 +16,7 @@
             <Label FontFamily="{StaticResource OpSans}" 
                    FontSize="15" Foreground="Black">MosaiqueRAT</Label>
             <StackPanel Margin="10 0" Orientation="Vertical">
-                <TextBlock Style="{x:Null}">Remote Administration Tool</TextBlock>
-                <TextBlock Style="{x:Null}">v1.0.0.0</TextBlock>
+                <TextBlock Style="{x:Null}">Remote Administration Tool v1.0.0.0</TextBlock>
                 <TextBlock Style="{x:Null}">Copyright © 2019 thdal</TextBlock>
             </StackPanel>
             <StackPanel Margin="0 10 0 0" Orientation="Vertical">
