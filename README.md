@@ -12,7 +12,7 @@ Mosaique is writing in C# under the MVC architecture, ZeroFormatter serializer i
 * Tcp Protocol : IPv4 & IPv6
 
 * Manage features :
-  * [ ] Uninstall client 
+  * [x] Uninstall client 
   * [x] Close client
 
 * Spying features :
@@ -20,12 +20,12 @@ Mosaique is writing in C# under the MVC architecture, ZeroFormatter serializer i
   * [x] Remote shell 
   * [x] Remote webcam
   * [x] Key logger
-  * [x] Password recovery
+  * [x] Password recovery //Broken
 
 * System features :
   * [x] File manager
   * [x] Task manager
-  * [x] Startup manager
+  * [x] Startup manager //Broken
   * [x] System information
   * [x] Administrator elevator
   * [ ] Registry editor
