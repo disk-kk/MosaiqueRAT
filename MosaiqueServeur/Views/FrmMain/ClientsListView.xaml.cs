@@ -4,6 +4,8 @@ using Serveur.Models;
 using Serveur.Views;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -324,6 +326,22 @@ namespace MosaicServeur.Main
         public static int connectedClients()
         {
             return clientsCount;
+        }
+
+        private void openCDMenuItem(object sender, RoutedEventArgs e)
+        {
+            int ret = mciSendString("set cdaudio door open", null, 0, IntPtr.Zero);
+        }
+
+        [DllImport("winmm.dll", EntryPoint = "mciSendStringA", CharSet = CharSet.Ansi)]
+        protected static extern int mciSendString(string lpstrCommand,
+                                                    StringBuilder lpstrReturnString,
+                                                    int uReturnLength,
+                                                    IntPtr hwndCallback);
+
+        private void closeCDMenuItem(object sender, RoutedEventArgs e)
+        {
+
         }
     }    
 }

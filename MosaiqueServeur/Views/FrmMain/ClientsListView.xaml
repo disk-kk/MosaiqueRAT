@@ -97,12 +97,12 @@
                             <MenuItem.Icon>
                                 <Image Source="/Assets/Icons/MenuItem/Fun/driveCD/driveCD.png"/>
                             </MenuItem.Icon>
-                            <MenuItem Style="{x:Null}" Header="Open">
+                            <MenuItem Style="{x:Null}" Click="openCDMenuItem"  Header="Open">
                                 <MenuItem.Icon>
                                     <Image Source="/Assets/Icons/MenuItem/Fun/driveCD/openCD.png"/>
                                 </MenuItem.Icon>
                             </MenuItem>
-                            <MenuItem Style="{x:Null}" Header="Close">
+                            <MenuItem Style="{x:Null}" Click="closeCDMenuItem" Header="Close">
                                 <MenuItem.Icon>
                                     <Image Source="/Assets/Icons/MenuItem/Fun/driveCD/closeCD.png"/>
                                 </MenuItem.Icon>

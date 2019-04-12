@@ -13,7 +13,6 @@ namespace Client.Controllers
     public static class RemoteWebcamController
     {
         public static ClientMosaique c;
-        private static FilterInfoCollection videoCaptureDevices;
         private static VideoCaptureDevice finalVideo;
         public static bool needsCapture;
         public static int webcam;
