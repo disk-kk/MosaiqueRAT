@@ -28,7 +28,8 @@ namespace MosaicServeur
             InitializeComponent();            
             GridSettings.Children.Clear();
             GridSettings.Children.Add(_clientsListView = new ClientsListView());
-            ItemHome.Background = (Brush)bc.ConvertFrom("#4A9EF5");
+            //ItemHome.Background = (Brush)bc.ConvertFrom("#4A9EF5");
+            ItemHome.IsSelected = true;
             Settings.updateMainUI += UIupdater;
         }
 
@@ -41,7 +42,7 @@ namespace MosaicServeur
             {
                 ListenerState.startListen = true;
                 _frmListenerController.listen(ListenerState.listenPort, ListenerState.IPv6Support);
-                pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LightbulbOn;
+                //pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LightbulbOn;
             }
             // >> UserControls >>
             _settings = new Settings(_frmListenerController);
@@ -113,20 +114,20 @@ namespace MosaicServeur
         }
         public void Updater(bool onOff)
         {
-            if (onOff == true)
-            {
-                pipeIcon.Dispatcher.BeginInvoke(new Action(delegate
-                {
-                    pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LightbulbOn;
-                }));
-            }
-            else
-            {
-                pipeIcon.Dispatcher.BeginInvoke(new Action(delegate
-                {
-                    pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Lightbulb;
-                }));
-            }
+            //if (onOff == true)
+            //{
+            //    pipeIcon.Dispatcher.BeginInvoke(new Action(delegate
+            //    {
+            //        pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LightbulbOn;
+            //    }));
+            //}
+            //else
+            //{
+            //    pipeIcon.Dispatcher.BeginInvoke(new Action(delegate
+            //    {
+            //        pipeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Lightbulb;
+            //    }));
+            //}
         }
 
         private void ShowTermsAndConditions()

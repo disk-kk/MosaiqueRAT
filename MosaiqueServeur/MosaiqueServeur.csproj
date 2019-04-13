@@ -60,20 +60,8 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Desktop\MosaicRAT\Librairies\AForge.NET Framework-2.2.5-(libs only)\Release\AForge.Video.dll</HintPath>
-    </Reference>
-    <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Desktop\MosaicRAT\Librairies\AForge.NET Framework-2.2.5-(libs only)\Release\AForge.Video.DirectShow.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignColors, Version=1.0.0.14576, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignColors.1.1.1\lib\net45\MaterialDesignColors.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -88,16 +76,83 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="ZeroFormatter, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroFormatter.1.6.4\lib\net45\ZeroFormatter.dll</HintPath>
-    </Reference>
-    <Reference Include="ZeroFormatter.Interfaces, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroFormatter.Interfaces.1.6.4\lib\net45\ZeroFormatter.Interfaces.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Libraries\AForge\Video.DirectShow\CameraControlProperty.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\FilterInfo.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\FilterInfoCollection.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IAMCameraControl.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IAMCrossbar.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IAMStreamConfig.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IAMVideoControl.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IBaseFilter.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\ICaptureGraphBuilder2.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\ICreateDevEnum.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IEnumFilters.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IEnumPins.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IFileSourceFilter.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IFilterGraph.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IFilterGraph2.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IGraphBuilder.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IMediaControl.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IMediaEventEx.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IMediaFilter.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IPersist.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IPin.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IPropertyBag.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IReferenceClock.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\ISampleGrabber.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\ISampleGrabberCB.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\ISpecifyPropertyPages.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\IVideoWindow.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\Structures.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\Tools.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\Uuids.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Internals\Win32.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\PhysicalConnectorType.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\Uuids.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\VideoCapabilities.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\VideoCaptureDevice.cs" />
+    <Compile Include="Libraries\AForge\Video.DirectShow\VideoInput.cs" />
+    <Compile Include="Libraries\AForge\Video\IVideoSource.cs" />
+    <Compile Include="Libraries\AForge\Video\VideoEvents.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter.Interfaces\Attributes.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter.Interfaces\ILazyDictionary.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter.Interfaces\KeyTuple.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Comparers\EnumEqualityComparer.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Comparers\KeyTupleEqualityComparer.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Comparers\WireFormatEqualityComparers.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Comparers\ZeroFormatterEqualityComparer.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\DirtyTracker.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\DateTimeOffsetFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\DynamicFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\EnumFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\Formatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\KeyTupleFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\KeyValuePairFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\LazyDictionaryFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\LazyLookupFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\ListFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\PrimitiveArrayFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\PrimitiveFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\SequenceFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\StringFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Formatters\TupleFormatter.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Internal\BinaryUtil.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Internal\DynamicAssembly.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Internal\EnumerableExtensions.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Internal\HashHelper.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Internal\ILGeneratorExtensions.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Internal\PseudoTypeInfo.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Internal\SR.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Internal\StringEncoding.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Segments\CacheSegment.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Segments\DictionarySegment.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Segments\DynamicObjectSegment.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Segments\IZeroFormatterSegment.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Segments\ListSegment.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\Segments\LookupSegment.cs" />
+    <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\ZeroFormatterSerializer.cs" />
     <Compile Include="Models\ClientRegistration.cs" />
     <Compile Include="Packets\ServerPackets\CloseClient.cs" />
     <Compile Include="Packets\ServerPackets\SetClientIdentifier.cs" />
@@ -328,6 +383,7 @@
     <Resource Include="Assets\Fonts\fa-solid-900.ttf" />
     <Resource Include="Assets\Fonts\OpenSans-Bold.ttf" />
     <Resource Include="Assets\Fonts\MosaicCaps.ttf" />
+    <Resource Include="Assets\Fonts\Roboto-Light.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

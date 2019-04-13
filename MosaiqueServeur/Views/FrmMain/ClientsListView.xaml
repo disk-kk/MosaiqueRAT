@@ -136,7 +136,7 @@
                     <GridViewColumn Header="Client Identifier" DisplayMemberBinding="{Binding Identifier}" />
                     <GridViewColumn Header="Ip Address" DisplayMemberBinding="{Binding Ip}" />
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Account" DisplayMemberBinding="{Binding AccType}"/>
+                    <GridViewColumn Header="Account Type" DisplayMemberBinding="{Binding AccType}"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country}"/>
                     <GridViewColumn Header="Operating System" DisplayMemberBinding="{Binding Os}"/>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>

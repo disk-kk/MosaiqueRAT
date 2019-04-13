@@ -32,7 +32,7 @@ namespace Client
             //}
             //MutexController.mutexKey = Boot.getMutexKey(readerMutex);// TODO virer
 
-            MutexController.mutexKey = "bougnoulonegroidomongolitoesclavago";// TODO virer    
+            MutexController.mutexKey = "bougnoulonegroidomongolitoesclzzavago";// TODO virer    
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

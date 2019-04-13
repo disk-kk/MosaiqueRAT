@@ -22,7 +22,7 @@
 
         <Grid Grid.Row="0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 -2">
-                <Button Width="110" Content="Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="14" FontWeight="Medium"/>
+                <Button Cursor="Hand" Style="{StaticResource tabControl}" Width="110" Content="Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="14" FontWeight="Medium"/>
             </StackPanel>
             <Grid x:Name="GridCursor" Width="110" Height="4" Background="#4a9ff5"  Margin="0 20 0 0" HorizontalAlignment="Left"/>
         </Grid>
@@ -50,13 +50,13 @@
                 </Grid>
                 <Label FontWeight="Medium" FontSize="25" Content="Related Settings"></Label>
 
-                <CheckBox x:Name="chkIPv6"  Margin="0 15 0 0" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11">
+                <CheckBox x:Name="chkIPv6"  Margin="0 15 0 0" FontSize="11">
                     Enable IPV6 Protocol.
                 </CheckBox>
-                <CheckBox x:Name="chkStartupConnections" Margin="0 15" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11">
+                <CheckBox x:Name="chkStartupConnections" Margin="0 15" Foreground="black" FontSize="11">
                     Listen for new connections on startup.
                 </CheckBox>
-                <CheckBox x:Name="chkPopupNotification" Style="{StaticResource MaterialDesignAccentCheckBox}" Background="#4a9ff5" Foreground="black" FontSize="11">
+                <CheckBox x:Name="chkPopupNotification" Foreground="black" FontSize="11">
                     Show popup notification on new connection.
                 </CheckBox>
             </StackPanel>
