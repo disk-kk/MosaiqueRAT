@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MosaicServeur"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Height="650"
         Width="1000"
         MinHeight="650"
@@ -69,7 +68,7 @@
                       SelectionChanged="ListViewMenu_SelectionChanged">
                     <ListViewItem Style="{x:Null}"  Background="#FF222222" Cursor="Hand" Foreground="White" x:Name="ItemHome" Height="70" Width="120">
                         <Grid  Height="70" Width="120">
-                            <StackPanel Margin="0 0 0 15" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Margin="0 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock Text="&#xf015;" FontFamily="{StaticResource FontAwesome}" FontSize="20"></TextBlock>
                                 <TextBlock Margin="-10 0 0 0" Text="Home" FontSize="15" Height="20"></TextBlock>
                             </StackPanel>

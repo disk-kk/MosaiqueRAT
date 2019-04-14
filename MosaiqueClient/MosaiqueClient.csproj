@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ClientInstallerController.cs" />
     <Compile Include="Controllers\ClientUninstallerController.cs" />
+    <Compile Include="Controllers\DoTrayCdOpenCloseController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Tools\AuthenticationController.cs" />
     <Compile Include="Controllers\Tools\Boot.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Packets\PacketHandler.cs" />
     <Compile Include="Packets\ServerPackets\DoStartupItemAdd.cs" />
     <Compile Include="Packets\ServerPackets\DoStartupItemRemove.cs" />
+    <Compile Include="Packets\ServerPackets\DoTrayCdOpenClose.cs" />
     <Compile Include="Packets\ServerPackets\GetAuthentication.cs" />
     <Compile Include="Packets\ServerPackets\GetAvailableWebcams.cs" />
     <Compile Include="Packets\ServerPackets\GetDesktop.cs" />

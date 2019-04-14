@@ -28,7 +28,6 @@ namespace MosaicServeur
             InitializeComponent();            
             GridSettings.Children.Clear();
             GridSettings.Children.Add(_clientsListView = new ClientsListView());
-            //ItemHome.Background = (Brush)bc.ConvertFrom("#4A9EF5");
             ItemHome.IsSelected = true;
             Settings.updateMainUI += UIupdater;
         }
@@ -64,7 +63,7 @@ namespace MosaicServeur
             {
                 case 0:
                     GridSettings.Children.Clear();
-                    GridSettings.Children.Add(_clientsListView);
+                    GridSettings.Children.Add(_clientsListView);                    
                     ItemHome.Background = (Brush)bc.ConvertFrom("#4A9EF5");
                     break;
                 case 1:
